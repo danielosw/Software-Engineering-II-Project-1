@@ -1,0 +1,16 @@
+Team Members
+--------------------
+Name:
+Contact Info:
+Expertise (programming languages, operating systems, computing platforms,...): 
+Available Times: 
+--------------------
+Name: Hannah Prosch
+Contact Info: hannahprosch@ku.edu, evergreen9408 (Discord)
+Expertise (programming languages, operating systems, computing platforms,...): C, Java, Python, JavaScript, HTML, CSS, SQL
+Available Times: Monday (8am - 11:30am, 1pm - 1:45pm)
+                 Tuesday (8am - 10:30am, 12:30pm - 3:30pm)
+                 Wednesday (8am - 11:30am, 1pm - 1:45pm)
+                 Thursday (8am - 10:30am, 12:30pm - 2pm)
+                 Friday (8am - 11:30am, 1pm - 1:45pm)
+--------------------
