@@ -1,8 +1,0 @@
-MEETING LOG
-
-WHEN: Friday, September 4, 2026 at 8:30am
-PURPOSE: Discussing the Overview of the Project
-ATTENDANCE: Forest Denton, Johney Makeen, Wyatt Payne, Hannah Prosch, Ian Rubelmann, Daniel Van Dalsem
-
-Discord Meeting
-Today, we briefly discussed an overview on how to approach the project.  Forest created a Google document (https://docs.google.com/document/d/1dN4g0oSwSHUqJAWVgB5lQWE9svhqrMeoQBS_z2En3WM/edit?usp=sharing) where we can collaboratively share ideas to help us get started.  Use of either Pygame or JavaScript were discussed.  Hannah inquired about the type of documentation we need to collect for the project's artifacts.  Daniel created a GitHub for this project, and asked how we wanted to handle pull requests/pushes.
