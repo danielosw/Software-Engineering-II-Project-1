@@ -2,6 +2,7 @@ class Tile {
 	constructor()
 	{
 		this.isFlipped = false;
+    this.isFlagged = false;
 		this.isBomb = false;
 		this.numSurroundingBombs = null;
 	}
@@ -9,23 +10,28 @@ class Tile {
 }
 
 // Grid setup, to be called once at the start of a game
+let grid_height = 0;
+let grid_width = 0; 
+
 function buildGrid(height, width, numBombs)
 {
-	let grid = []
+	let grid = [];
+  grid_height = height;
+  grid_width = width;
 
 	for(let i = 0; i < width; i++)
 	{
 		grid[i] = [];
 		for(let j = 0; j < height; j++)
 		{
-			grid[i][j] = new Tile()
+			grid[i][j] = new Tile();
 		}
 	}
 
 	grid = populateBombs(grid, numBombs);
 	grid = setTileNeighboringBombCounts(grid);
 	
-	return grid
+	return grid;
 }
 
 // Places the specified number of bombs randomly throughout the grid (ran once during buildGrid)
@@ -106,7 +112,94 @@ function printGrid(grid)
 	}
 }
 
+
+
 // Example for how to generate a new grid
 let testGrid = buildGrid(10, 10, 10);
 printGrid(testGrid);
 
+
+var remaining_tiles = 0 // amount of non bomb tiles unrevealed, will be initialized in the init function
+
+// When a tile is clicked, just pass along the grid, and x/y cord as ints, and this should take care of the rest 
+// It will also return the game state after revealing the tile. 
+function revealTile(grid, xCord, yCord)
+{
+  let cur_tile = grid[xCord][yCord] 
+  if (!cur_tile.isFlagged && !cur_tile.isFlipped)
+  {
+    if (checkTile(cur_tile) == "B"){
+      return "Game Over: Loss";
+    }
+    if (checkTile(cur_tile) == 0)
+    {
+      recReveal(grid, xCord, yCord)
+    }
+    else
+    {
+      cur_tile.isFlipped = true;
+      remaining_tiles -= 1; // one less non-bomb tile revealed 
+    }
+    // now to check gameState
+    if (remaining_tiles == 0)
+    {
+      return "Victory";
+    }
+    else {
+      return "Playing";
+    }
+  }
+  return "Playing";  // tried to reveal flagged tile
+}
+
+// Flagging a tile
+function flagTile(grid, xCord, yCord)
+{
+  if (grid[xCord][yCord].isFlagged){
+    grid[xCord][yCord].isFlagged = false; // flagging a flagged tile = unflagged tile
+  }
+  else
+  {
+    grid[xCord][yCord].isFlagged = true; 
+  }
+  return;
+}
+
+function recReveal(grid, xCord, yCord){ // mis flagged tiles that are 0 don't get revealed
+  grid[xCord][yCord].isFlipped = true;
+  remaining_tiles -= 1;
+  // current tile is done, now to figure out edges 
+  // Note: I used gemini 3.1 pro for figuring out these edges 
+  for (let dx = -1; dx <= 1; dx++) {
+    for (let dy = -1; dy <= 1; dy++) {
+      // Skip the current tile itself
+      if (dx === 0 && dy === 0) continue;
+      
+      let checkX = xCord + dx;
+      let checkY = yCord + dy;
+      
+      // Check if the coordinates are within the grid bounds
+      if (checkX >= 0 && checkX < grid_width && 
+          checkY >= 0 && checkY < grid_height) {
+          
+          // The tile is safe to check! 
+          let neighborTile = grid[checkX][checkY];
+          if (!neighborTile.isFlipped && !neighborTile.isFlagged) // ignore flipped and flagged tiles 
+          {
+            if (checkTile(neighborTile) == 0) // if the discovered tile needs to be recRevealed as well
+            {
+              recReveal(grid, checkX, checkY)
+          
+            }
+            else
+            {
+              neighborTile.isFlipped = true;
+              remaining_tiles -= 1;
+
+            }
+          }
+      }
+    }
+  }
+  return; // every valid spot is tested
+}

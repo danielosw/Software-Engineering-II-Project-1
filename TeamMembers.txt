@@ -14,3 +14,13 @@ Available Times: Monday (8am - 11:30am, 1pm - 1:45pm)
                  Thursday (8am - 10:30am, 12:30pm - 2pm)
                  Friday (8am - 11:30am, 1pm - 1:45pm)
 --------------------
+Name: Forest Denton
+Contact Info: f905d314@ku.edu, mrunowoo on Discord
+Expertise (programming languages, operating systems, computing platforms,...): Python, C/C++, SQL, Haskell, Linux, Computational Biology (especially computational neurobiology)
+Available Times: Monday (8am - 10am, 2pm-3:30pm, 5pm - )
+                 Tuesday (8am-10am, 3-4pm, 6-7:30pm)
+                 Wednesday (8am-10am, 2-3:30pm, 5-7pm)
+                 Thursday (8-10am, 3-5pm)
+                 Friday (8-10am, 2-4pm)
+--------------------
+
