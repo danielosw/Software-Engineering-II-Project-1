@@ -1,0 +1,15 @@
+.grid-center{
+    	display: block grid;
+	justify-content: center;
+	align-items: center;
+
+}
+.grid-stack{
+    	display: block grid;
+	grid-auto-flow: row;
+
+}
+.grid-column{
+    	display: block grid;
+	grid-auto-flow: column;
+}
