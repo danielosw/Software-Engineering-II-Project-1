@@ -2,22 +2,29 @@ class Tile {
 	constructor()
 	{
 		this.isFlipped = false;
-    this.isFlagged = false;
+    		this.isFlagged = false;
 		this.isBomb = false;
 		this.numSurroundingBombs = null;
 	}
 
 }
 
-// Grid setup, to be called once at the start of a game
 let grid_height = 0;
-let grid_width = 0; 
+let grid_width = 0;
 
+/*
+	Grid setup, to be called once at the start of a game
+
+	inputs: grid height (int), grid width (int), number of bombs (int)
+	outputs: grid (2d array)
+
+	Ian R : 9/14/26 10:21 AM
+*/
 function buildGrid(height, width, numBombs)
 {
 	let grid = [];
-  grid_height = height;
-  grid_width = width;
+  	grid_height = height;
+ 	grid_width = width;
 
 	for(let i = 0; i < width; i++)
 	{
@@ -34,7 +41,15 @@ function buildGrid(height, width, numBombs)
 	return grid;
 }
 
-// Places the specified number of bombs randomly throughout the grid (ran once during buildGrid)
+
+/*
+	Places the specified number of bombs randomly throughout the grid (ran once during buildGrid)
+
+	inputs: grid (2d array), number of bombs (int)
+	outputs: grid (2d array)
+
+	Ian R : 9/14/26 10:21 AM
+*/
 function populateBombs(grid, numBombs)
 {
 	let width = grid[0].length;
@@ -55,7 +70,16 @@ function populateBombs(grid, numBombs)
 	return grid;
 }
 
-// gets the number of bombs around each tile and saves that value (ran once during buildGrid)
+
+/*
+	gets the number of bombs around each tile and saves that value (ran once during buildGrid)
+
+	inputs: grid (2d array)
+	outputs: grid (2d array)
+
+	9/14/26 10:21 AM
+	Ian R
+*/
 function setTileNeighboringBombCounts(grid)
 {
 	let width = grid[0].length;
@@ -84,7 +108,14 @@ function setTileNeighboringBombCounts(grid)
 	return grid;
 }
 
-// Simple function that will return B if a tile is a bomb and the # of surrounding bombs if not
+/*
+	Simple function that will return B if a tile is a bomb and the # of surrounding bombs if not
+
+	inputs: tile (tile)
+	outputs: tile state (char)
+
+	Ian R : 9/14/26 10:21 AM
+*/
 function checkTile(tile)
 {
 	if(tile.isBomb == true)
@@ -97,7 +128,15 @@ function checkTile(tile)
 	}
 }
 
-// Function for printing/testing grid generation
+/*
+	Function for printing/testing grid generation
+
+	inputs: grid (2d array)
+	outputs: IO
+
+	9/14/26 10:21 AM
+	Ian R
+*/
 function printGrid(grid)
 {
 	for(let i = 0; i < grid.length; i++)
@@ -114,7 +153,7 @@ function printGrid(grid)
 
 
 
-// Example for how to generate a new grid
+// Example for how to generate a new grid (Ian R : 9/14/2026 10:25 AM)
 let testGrid = buildGrid(10, 10, 10);
 printGrid(testGrid);
 
