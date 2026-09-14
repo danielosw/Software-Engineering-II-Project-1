@@ -77,7 +77,6 @@ function render(grid, bombs) {
 				}
 			} else {
 				button.classList.add("revealed-tile");
-				revealed += 1;
 				if (tile.numSurroundingBombs !== undefined) {
 					button.textContent = tile.numSurroundingBombs;
 				}
