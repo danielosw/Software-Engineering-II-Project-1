@@ -1,34 +1,68 @@
 function win_loss_continue(input) {
 	if (input === "Game Over: Loss") {
-		alert("You lose!");
+		lose()
+		return false;
 	}
 	if (input === "Victory") {
-		alert("You win!");
+		win()
+		return false;
 	} else {
+		return true
 	}
+}
+function lose(){
+	let container = resetScreen();
+		container.textContent = "You lose!"
+}
+function win(){
+	let container = resetScreen();
+	container.textContent = "You win!"
+}
+function resetScreen() {
+	const container = document.getElementById("main-container");
+	const flags_remaining = document.getElementById("container-two");
+	flags_remaining.innerHTML = "";
+	container.innerHTML = "";
+	const currentdiv = document.createElement("div");
+	currentdiv.className = "grid-column";
+	container.appendChild(currentdiv);
+	return currentdiv;
 }
 
 function startup(bombs) {
 	console.log(bombs);
 	const grid = buildGrid(10, 10, bombs);
-	render(grid, bombs);
+	render(grid, bombs, true);
 }
+// this waits for the page load
+// because otherwise we try to manipulate the dom before 
 window.addEventListener("load", () => {
 	const container = document.getElementById("main-container");
 	const currentdiv = document.createElement("div");
+	const bonusInstuctions = document.createElement("div");
 	currentdiv.className = "grid-column";
 	container.appendChild(currentdiv);
-
+	const titlebar = document.createElement("p");
 	const input = document.createElement("input");
 	const button = document.createElement("button");
+	titlebar.textContent = "Welcome to minesweeper! Input between the amount of mines you want (10-20) then press start."
 	button.className = "old-button";
 	input.id = "bombNumber";
+	input.type = "number"
 
 	button.textContent = "Start!";
+	container.appendChild(titlebar)
+	container.appendChild(bonusInstuctions)
 	container.appendChild(input);
 	container.appendChild(button);
 	button.addEventListener("click", () => {
+		if(input.value>=10 && input.value<=20){
 		startup(input.value);
+		}
+		else{
+			bonusInstuctions.textContent = "You can only have betweeen 10-20 mines!";
+
+		}
 	});
 });
 function numtoLetter(num) {
@@ -55,7 +89,7 @@ function numtoLetter(num) {
 			return "J";
 	}
 }
-function render(grid, bombs) {
+function render(grid, bombs, first_run) {
 	// All nessesary to reviel to win
 	const container = document.getElementById("main-container");
 	container.innerHTML = "";
@@ -83,15 +117,29 @@ function render(grid, bombs) {
 			}
 
 			button.addEventListener("click", () => {
+				// if this is the first click and we have clicked on a bomb
+				if(first_run && tile.isBomb == true){
+					// if this is a mine get a list of all non mine cells that are not this cell
+					let nonbombs = grid.flat(2).filter((tiler) => !tiler.isBomb);
+					// disable the mine
+					tile.isBomb = false;
+					// set one of the non mine cells to a mine cell
+					nonbombs[Math.floor(Math.random() * (nonbombs.length-0)-0)].isBomb = true;
+				}
 				const result = revealTile(grid, i, x);
-				win_loss_continue(result);
-				render(grid, bombs);
+
+				if(win_loss_continue(result)){
+				render(grid, bombs, false);
+				}
+				else{
+					return;
+				}
 			});
 			button.addEventListener("contextmenu", (e) => {
 				// prevent the right click menu from actually opening
 				e.preventDefault();
 				flagTile(grid, i, x);
-				render(grid, bombs);
+				render(grid, bombs, false);
 			});
 		}
 		const column = document.createElement("div");

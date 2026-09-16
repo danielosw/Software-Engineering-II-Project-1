@@ -37,7 +37,9 @@ function buildGrid(height, width, numBombs)
 
 	grid = populateBombs(grid, numBombs);
 	grid = setTileNeighboringBombCounts(grid);
-	
+	// Added by Daniel Van Dalsem, initalizes the remaining tiles variable to detect victory.
+	// 9/15/26
+	remaining_tiles = height*width-numBombs;
 	return grid;
 }
 
