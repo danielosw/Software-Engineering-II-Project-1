@@ -32,4 +32,9 @@ Available times: Monday (8am - 10:30am), 12:00 - 1:30pm, 3pm - 5pm)
                 Thursday (8am - 10:30am), 12:20 - 5pm)
                 Friday (8am - 10:30am), 12:00 - 1:30pm, 3pm - 5pm)       
 --------------------
+Name: Ian (Eden) Ruebelmann
+Contact Info: i155r697@ku.edu, Konegio on Discord & Github
+Expertise (programming languages, operating systems, computing platforms,...): Python, C/C++/C#
+Available Times: 
+--------------------
 
