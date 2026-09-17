@@ -2,6 +2,58 @@ body {
 	background-color: #ebedfd;
 }
 
+.title{
+	position: absolute;
+	font-family: "Press Start 2P", monospace;
+	color: #ff0e3e;
+	font-size: 50px;
+	left: 46%;
+	transform: translateX(-50%);
+	animation: fall 2s ease-in forwards;
+	z-index: 2;
+}
+
+@keyframes fall {
+	from {
+		top: -3000px;
+	}
+	to {
+		top: 25%;
+	}
+}
+
+.title-shadow {
+    position: absolute;
+
+    left: 48%;
+    top: 36%;
+
+    width: 400px;
+    height: 9px;
+
+    background-color: black;
+    border-radius: 50%;
+    filter: blur(10px);
+
+    opacity: 0;
+    transform: translateX(-50%) scale(0.3);
+
+    animation: shadow-grow 2s ease-in forwards;
+	z-index: 1;
+}
+
+@keyframes shadow-grow {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.3);
+    }
+
+    to {
+        opacity: 0.85;
+        transform: translateX(-50%) scale(1.5);
+    }
+}
+
 .grid-center{
     display: block grid;
 	justify-content: center;
