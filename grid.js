@@ -1,3 +1,13 @@
+/*
+Name(s): Ian Ruebelmann & Forest Denton
+Creation Date: September 11th, 2026
+Project: Project 1 - Minesweeping Game
+File Description: This is the backend/gameplay function section. It is responsible for building a grid and providing helper
+functions to give proper responses to actions taken in gameplay, providing the corresponding gamestates.
+*/
+
+
+// Object used to represent an individual tile in the grid
 class Tile {
 	constructor()
 	{
