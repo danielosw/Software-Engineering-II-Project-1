@@ -54,6 +54,134 @@ body {
     }
 }
 
+.explosion {
+    width: 130px;
+    height: 130px;
+
+    background-image: url("explode-sprite-sheet.png");
+    background-repeat: no-repeat;
+
+    position: absolute;
+    left: 47%;
+    top: 25%;
+
+    transform: translateX(-50%) scaleX(8) scaleY(3);
+    transform-origin: center;
+
+    z-index: 3;
+    opacity: 0;
+
+    animation: explode 0.7s steps(1) 2s forwards;
+}
+
+@keyframes explode {
+    0% {
+        background-position: 0px 0px;
+        opacity: 1;
+    }
+
+    4% {
+        background-position: -130px 0px;
+    }
+
+    8% {
+        background-position: -260px 0px;
+    }
+
+    12% {
+        background-position: -390px 0px;
+    }
+
+    16% {
+        background-position: -520px 0px;
+    }
+
+    20% {
+        background-position: 0px -130px;
+    }
+
+    24% {
+        background-position: -130px -130px;
+    }
+
+    28% {
+        background-position: -260px -130px;
+    }
+
+    32% {
+        background-position: -390px -130px;
+    }
+
+    36% {
+        background-position: -520px -130px;
+    }
+
+    40% {
+        background-position: 0px -260px;
+    }
+
+    44% {
+        background-position: -130px -260px;
+    }
+
+    48% {
+        background-position: -260px -260px;
+    }
+
+    52% {
+        background-position: -390px -260px;
+    }
+
+    56% {
+        background-position: -520px -260px;
+    }
+
+    60% {
+        background-position: 0px -390px;
+    }
+
+    64% {
+        background-position: -130px -390px;
+    }
+
+    68% {
+        background-position: -260px -390px;
+    }
+
+    72% {
+        background-position: -390px -390px;
+    }
+
+    76% {
+        background-position: -520px -390px;
+    }
+
+    80% {
+        background-position: 0px -520px;
+    }
+
+    84% {
+        background-position: -130px -520px;
+    }
+
+    88% {
+        background-position: -260px -520px;
+    }
+
+    92% {
+        background-position: -390px -520px;
+    }
+
+    96% {
+        background-position: -520px -520px;
+    }
+
+    100% {
+        background-position: -520px -520px;
+        opacity: 0;
+    }
+}
+
 .grid-center{
     display: block grid;
 	justify-content: center;
