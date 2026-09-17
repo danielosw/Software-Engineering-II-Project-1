@@ -49,5 +49,17 @@ Available Times: Tuesday: 8am-9am, 11am-3pm
 Available Times: Wednesday 8am-9:30am, 12pm-1:40pm, 4pm-7pm
 Available Times: Thursday: 8am-9am, 4pm-7pm
 Available Times: Friday 8am-9:30am, 12pm-1:40pm, 4pm-7pm
+--------------------
+Name: Christopher Brush
+Contact Info: cbr@ku.edu, macroura
+Expertise: Python, C/C++, SQL, Haskell, HTML, CSS, JAvascript, Linux
+Available times:
+Monday: 8-10 AM
+Tuesday: 8-10 AM
+Wednesday: 8-10 AM
+Thursday: 8-11 AM 3PM-7PM
+Friday: 8-10 AM
+
+
 
 
