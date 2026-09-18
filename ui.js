@@ -1,6 +1,6 @@
-function win_loss_continue(input) {
+function win_loss_continue(input, grid) {
 	if (input === "Game Over: Loss") {
-		lose()
+		lose(grid)
 		return false;
 	}
 	if (input === "Victory") {
@@ -10,13 +10,31 @@ function win_loss_continue(input) {
 		return true
 	}
 }
-function lose(){
-	let container = resetScreen();
-		container.textContent = "You lose!"
+function lose(grid){
+	// show every mine after the player loses
+	grid.flat().forEach((tile) => {
+		if (tile.isBomb) {
+			tile.isFlipped = true;
+		}
+	});
+	render(grid, grid.flat().filter((tile) => tile.isBomb).length, false);
+	const container = document.getElementById("main-container");
+	const message = document.createElement("p");
+	message.textContent = "You lose!";
+	container.appendChild(message);
+	container.querySelectorAll("button").forEach((button) => button.disabled = true);
+	addRestartButton(container);
 }
 function win(){
 	let container = resetScreen();
 	container.textContent = "You win!"
+	addRestartButton(container);
+}
+function addRestartButton(container) {
+	const button = document.createElement("button");
+	button.textContent = "restart";
+	button.addEventListener("click", () => window.location.reload());
+	container.appendChild(button);
 }
 function resetScreen() {
 	const container = document.getElementById("main-container");
@@ -56,12 +74,11 @@ window.addEventListener("load", () => {
 	container.appendChild(input);
 	container.appendChild(button);
 	button.addEventListener("click", () => {
-		if(input.value>=10 && input.value<=20){
-		startup(input.value);
+		if(input.value>=10 && input.value<=20 && Number.isInteger(Number(input.value))){
+			startup(Number(input.value));
 		}
 		else{
 			bonusInstuctions.textContent = "You can only have betweeen 10-20 mines!";
-
 		}
 	});
 });
@@ -111,7 +128,9 @@ function render(grid, bombs, first_run) {
 				}
 			} else {
 				button.classList.add("revealed-tile");
-				if (tile.numSurroundingBombs !== undefined) {
+				if (tile.isBomb) {
+					button.textContent = "B";
+				} else if (tile.numSurroundingBombs > 0) {
 					button.textContent = tile.numSurroundingBombs;
 				}
 			}
@@ -119,16 +138,18 @@ function render(grid, bombs, first_run) {
 			button.addEventListener("click", () => {
 				// if this is the first click and we have clicked on a bomb
 				if(first_run && tile.isBomb == true){
+					// move the first clicked mine and refresh nearby numbers
 					// if this is a mine get a list of all non mine cells that are not this cell
-					let nonbombs = grid.flat(2).filter((tiler) => !tiler.isBomb);
+					let nonbombs = grid.flat(2).filter((tiler) => !tiler.isBomb && !tiler.isFlagged && tiler !== tile);
 					// disable the mine
 					tile.isBomb = false;
 					// set one of the non mine cells to a mine cell
 					nonbombs[Math.floor(Math.random() * (nonbombs.length-0)-0)].isBomb = true;
+					setTileNeighboringBombCounts(grid);
 				}
 				const result = revealTile(grid, i, x);
 
-				if(win_loss_continue(result)){
+				if(win_loss_continue(result, grid)){
 				render(grid, bombs, false);
 				}
 				else{
@@ -138,7 +159,9 @@ function render(grid, bombs, first_run) {
 			button.addEventListener("contextmenu", (e) => {
 				// prevent the right click menu from actually opening
 				e.preventDefault();
-				flagTile(grid, i, x);
+				if (!tile.isFlipped && (!tile.isFlagged && flags < bombs || tile.isFlagged)) {
+					flagTile(grid, i, x);
+				}
 				render(grid, bombs, false);
 			});
 		}
