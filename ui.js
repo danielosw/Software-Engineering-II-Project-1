@@ -1,3 +1,5 @@
+let currentMusic;
+
 function win_loss_continue(input) {
 	if (input === "Game Over: Loss") {
 		lose()
@@ -10,10 +12,17 @@ function win_loss_continue(input) {
 		return true
 	}
 }
+
 function lose(){
-	let container = resetScreen();
-		container.textContent = "You lose!"
+	currentMusic.pause();
+	const blackScreenText = document.getElementById("intro-screen");
+	blackScreenText.textContent = "you just lost the game";
+	blackScreenText.style.zIndex = 8;
+	blackScreenText.style.display = "flex";
+
+	resetScreen();
 }
+
 function win(){
 	let container = resetScreen();
 	container.textContent = "You win!"
@@ -46,7 +55,7 @@ window.addEventListener("load", () => {
 	const main_theme = new Audio("minesweeper_theme.mp3");
 	const theme_minus_explosion = new Audio("minesweeper_default.mp3");
 
-	let currentMusic = main_theme;
+	currentMusic = main_theme;
 	let musicPaused = false;
 
 	function beginGame() {

@@ -428,7 +428,7 @@ body {
     padding: 0;
 
     cursor: pointer;
-    z-index: 1000;
+    z-index: 7;
 }
 
 #volume-icon {
