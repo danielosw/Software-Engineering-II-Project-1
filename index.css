@@ -54,7 +54,7 @@ body {
     }
 }
 
-.explosion {
+.title-explosion {
     width: 130px;
     height: 130px;
 
@@ -68,9 +68,10 @@ body {
     transform: translateX(-50%) scaleX(8) scaleY(3);
     transform-origin: center;
 
-    z-index: 3;
+    z-index: 4;
     opacity: 0;
 
+	pointer-events: none;
     animation: explode 0.7s steps(1) 2s forwards;
 }
 
@@ -179,6 +180,94 @@ body {
     100% {
         background-position: -520px -520px;
         opacity: 0;
+    }
+}
+
+.title-fire {
+    width: 120px;
+    height: 120px;
+
+    background-image: url("ongoing_fire_sprite_sheet.png");
+    background-repeat: no-repeat;
+
+    position: absolute;
+    left: 30%;
+    top: 21%;
+
+    transform: translateX(-50%) scale(0.3);
+    transform-origin: center;
+
+    z-index: 3;
+
+    opacity: 0;
+
+    animation: fire-animation 0.7s steps(1) 2.3s infinite;
+}
+
+.fire-one {
+    left: 30%;
+    top: 21%;
+}
+
+.fire-two {
+    left: 43%;
+    top: 27%;
+}
+
+.fire-three {
+    left: 60%;
+    top: 22%;
+}
+
+@keyframes fire-animation {
+    0% {
+        background-position: 0px 0px;
+        opacity: 1;
+    }
+
+    11% {
+        background-position: -120px 0px;
+        opacity: 1;
+    }
+
+    22% {
+        background-position: -240px 0px;
+        opacity: 1;
+    }
+
+    33% {
+        background-position: 0px -120px;
+        opacity: 1;
+    }
+
+    44% {
+        background-position: -120px -120px;
+        opacity: 1;
+    }
+
+    55% {
+        background-position: -240px -120px;
+        opacity: 1;
+    }
+
+    66% {
+        background-position: 0px -240px;
+        opacity: 1;
+    }
+
+    77% {
+        background-position: -120px -240px;
+        opacity: 1;
+    }
+
+    88% {
+        background-position: -240px -240px;
+        opacity: 1;
+    }
+
+    100% {
+        background-position: 0px 0px;
+        opacity: 1;
     }
 }
 
