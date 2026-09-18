@@ -1,0 +1,48 @@
+.grid-center{
+    display: block grid;
+	justify-content: center;
+	align-items: center;
+
+}
+.grid-stack{
+    display: block grid;
+	gap: 0;
+	justify-content: start;
+	align-content: start;
+
+}
+.grid-column{
+    display: block grid;
+	grid-auto-flow: column;
+}
+.button{
+	border-radius:.375rem;
+	width: 2.5rem;
+	height: 2.5rem;
+	margin: 0;
+  line-height:1.42857;
+}
+.old-button{
+	border-radius:.375rem;
+  padding-left:1.25rem;
+  padding-right:1.25rem;
+  padding-top:.625rem;
+  padding-bottom:.625rem;
+  font-size:.875rem;
+  line-height:1.42857;
+}
+
+.icon-thing{
+	border-radius:.375rem;
+	width: 2.5rem;
+	height: 2.5rem;
+	margin: 0;
+  line-height:1.42857;
+}
+
+.hidden-tile{
+	background-color: gray;
+}
+.revealed-tile{
+	background-color: white;
+}
