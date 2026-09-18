@@ -299,14 +299,24 @@ body {
 	margin: 0;
   line-height:1.42857;
 }
-.old-button{
-	border-radius:.375rem;
-  padding-left:1.25rem;
-  padding-right:1.25rem;
-  padding-top:.625rem;
-  padding-bottom:.625rem;
-  font-size:.875rem;
-  line-height:1.42857;
+
+/* START BUTTON */
+.old-button {
+	position: relative;
+    background-color: green;
+    color: white;
+    border: 3px solid black;
+
+    padding: .4rem .75rem;
+
+    font-family: "Press Start 2P", monospace;
+    font-size: .875rem;
+
+	left: -6.5vw;
+	top: 1vh;
+
+    /* justify-self: center; */
+    width: fit-content;
 }
 
 .icon-thing{
@@ -331,4 +341,19 @@ body {
 	left: 74%;
 	top: 50%;
 	transform: translate(-50%,-50%);
+}
+
+.mine-prompt {
+	position: relative;
+	font-family: "Press Start 2P", monospace;
+	font-size: .65rem;
+	left: -6.5vw;
+}
+
+.prompt-box {
+	position: relative;
+	left: -6.5vw;
+	font-family: "Press Start 2P", monospace;
+	font-size: .8rem;
+	width: 20vw;
 }

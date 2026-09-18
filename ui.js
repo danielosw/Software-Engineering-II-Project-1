@@ -43,14 +43,46 @@ window.addEventListener("load", () => {
 	currentdiv.className = "grid-column";
 	container.appendChild(currentdiv);
 	const titlebar = document.createElement("p");
+
+	// RPM
+	// changing font and text for the mime-prompt in CSS
+	titlebar.className = "mine-prompt";
+
 	const input = document.createElement("input");
+
+	// RPM
+	// creating a place holder to let user know where to type
+	input.placeholder = "Type Here..."
+	// creating visual changes inside of CSS
+	input.className = "prompt-box";
+
+	input.style.display = "none";
+	setTimeout(()=>{
+		input.style.display = "block"
+	}, 3000);
+
 	const button = document.createElement("button");
-	titlebar.textContent = "Welcome to minesweeper! Input between the amount of mines you want (10-20) then press start."
+
+	// RPM
+	// adding code that would have the button be unable to be seen/pressed until after beginning animation
+	button.style.display = "none";
+	setTimeout(()=>{
+		button.style.display = "block";
+	}, 3000);
+
+	titlebar.textContent = "ENTER AMOUNT OF MINES (10-20), THEN PRESS START."
+
+
+	titlebar.style.display = "none";
+	setTimeout(()=>{
+		titlebar.style.display = "block";
+	}, 3000);
+
 	button.className = "old-button";
 	input.id = "bombNumber";
 	input.type = "number"
 
-	button.textContent = "Start!";
+	button.textContent = "START";
 	container.appendChild(titlebar)
 	container.appendChild(bonusInstuctions)
 	container.appendChild(input);
