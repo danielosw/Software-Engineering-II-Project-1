@@ -201,6 +201,19 @@ function render(grid, bombs, first_run) {
 				button.classList.add("revealed-tile");
 				if (tile.numSurroundingBombs !== undefined) {
 					button.textContent = tile.numSurroundingBombs;
+
+					if (tile.numSurroundingBombs === 0) {
+						button.classList.add("tile-zero");
+					}
+					else if (tile.numSurroundingBombs === 1) {
+						button.classList.add("tile-one");
+					}
+					else if (tile.numSurroundingBombs === 2) {
+						button.classList.add("tile-two");
+					}
+					else if (tile.numSurroundingBombs === 3) {
+						button.classList.add("tile-three");
+					}
 				}
 			}
 

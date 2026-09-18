@@ -358,6 +358,7 @@ body {
     width: fit-content;
 }
 
+/* Number "row" */
 .icon-thing{
     border-radius: .375rem;
     width: 3rem;
@@ -371,11 +372,14 @@ body {
     font-size: 70%;
 }
 
+/* blocks before "revealed" */
 .hidden-tile{
 	background-color: gray;
 }
+/* block color after "revealed" */
 .revealed-tile{
 	background-color: white;
+    font-family: "Press Start 2P", monospace;
 }
 
 .webpage_art{
@@ -436,4 +440,17 @@ body {
     position: relative;
     top: .7rem;
     left: -0.5rem;
+}
+
+.tile-zero {
+    color: gray;
+}
+.tile-one{
+    color: blue;
+}
+.tile-two {
+    color: green;
+}
+.tile-three {
+    color: red;
 }
