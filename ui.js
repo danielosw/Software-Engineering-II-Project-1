@@ -139,7 +139,12 @@ window.addEventListener("load", () => {
 	container.appendChild(button);
 	button.addEventListener("click", () => {
 		if(input.value>=10 && input.value<=20){
-		startup(input.value);
+			document.querySelectorAll(
+				".title, .title-shadow, .title-fire, .title-explosion"
+			).forEach(element => {
+				element.style.display = "none";
+			});
+			startup(input.value);
 		}
 		else{
 			bonusInstuctions.className = "out-of-range-message"
