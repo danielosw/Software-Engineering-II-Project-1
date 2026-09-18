@@ -1,8 +1,9 @@
 let currentMusic;
 
-function win_loss_continue(input) {
+/*OLD VERSION, TO BE REPLACED*/
+function win_loss_continue(input,grid) {
 	if (input === "Game Over: Loss") {
-		lose()
+		lose(grid)
 		return false;
 	}
 	if (input === "Victory") {
@@ -13,20 +14,88 @@ function win_loss_continue(input) {
 	}
 }
 
-function lose(){
+// function lose(){
+// 	currentMusic.pause();
+// 	const blackScreenText = document.getElementById("intro-screen");
+// 	blackScreenText.textContent = "you just lost the game";
+// 	blackScreenText.style.zIndex = 8;
+// 	blackScreenText.style.display = "flex";
+
+// 	resetScreen();
+// }
+
+// function win(){
+// 	let container = resetScreen();
+// 	container.textContent = "You win!"
+// }
+
+
+function lose(grid) {
+	// Stop music immediately
 	currentMusic.pause();
-	const blackScreenText = document.getElementById("intro-screen");
-	blackScreenText.textContent = "you just lost the game";
-	blackScreenText.style.zIndex = 8;
-	blackScreenText.style.display = "flex";
 
-	resetScreen();
+	// Reveal every mine
+	grid.flat().forEach((tile) => {
+		if (tile.isBomb) {
+			tile.isFlipped = true;
+		}
+	});
+
+	// Show the board with the mines revealed
+	render(grid, grid.flat().filter((tile) => tile.isBomb).length, false);
+
+	// Prevent the player from clicking anything
+	const container = document.getElementById("main-container");
+	container.querySelectorAll("button").forEach((button) => {
+		button.disabled = true;
+	});
+
+	// Let player see the board first
+	setTimeout(() => {
+		const blackScreen = document.getElementById("intro-screen");
+
+		blackScreen.innerHTML = "";
+		blackScreen.style.zIndex = "8";
+		blackScreen.style.display = "flex";
+		blackScreen.style.flexDirection = "column";
+
+		// Begin fade to black
+		blackScreen.style.opacity = "0";
+		blackScreen.style.transition = "opacity 1s ease";
+
+		requestAnimationFrame(() => {
+			blackScreen.style.opacity = "1";
+		});
+
+		// After fade finishes, show message
+		setTimeout(() => {
+			const message = document.createElement("p");
+			message.textContent = "you just lost the game.";
+			blackScreen.appendChild(message);
+
+			// Then show restart button
+			setTimeout(() => {
+				addRestartButton(blackScreen);
+			}, 500);
+
+		}, 1000);
+
+	}, 1500);
 }
 
-function win(){
+function win() {
 	let container = resetScreen();
-	container.textContent = "You win!"
+	container.textContent = "You win!";
+	addRestartButton(container);
 }
+
+function addRestartButton(container) {
+	const button = document.createElement("button");
+	button.textContent = "restart";
+	button.addEventListener("click", () => window.location.reload());
+	container.appendChild(button);
+}
+
 function resetScreen() {
 	const container = document.getElementById("main-container");
 	const flags_remaining = document.getElementById("container-two");
@@ -206,25 +275,29 @@ function render(grid, bombs, first_run) {
 					button.textContent = "🚩";
 					flags += 1;
 				}
-			} else {
-				button.classList.add("revealed-tile");
-				if (tile.numSurroundingBombs !== undefined) {
-					button.textContent = tile.numSurroundingBombs;
+				} else {
+					button.classList.add("revealed-tile");
 
-					if (tile.numSurroundingBombs === 0) {
-						button.classList.add("tile-zero");
+					if (tile.isBomb) {
+						button.textContent = "B";
 					}
-					else if (tile.numSurroundingBombs === 1) {
-						button.classList.add("tile-one");
-					}
-					else if (tile.numSurroundingBombs === 2) {
-						button.classList.add("tile-two");
-					}
-					else if (tile.numSurroundingBombs === 3) {
-						button.classList.add("tile-three");
+					else if (tile.numSurroundingBombs !== undefined) {
+						button.textContent = tile.numSurroundingBombs;
+
+						if (tile.numSurroundingBombs === 0) {
+							button.classList.add("tile-zero");
+						}
+						else if (tile.numSurroundingBombs === 1) {
+							button.classList.add("tile-one");
+						}
+						else if (tile.numSurroundingBombs === 2) {
+							button.classList.add("tile-two");
+						}
+						else if (tile.numSurroundingBombs === 3) {
+							button.classList.add("tile-three");
+						}
 					}
 				}
-			}
 
 			button.addEventListener("click", () => {
 				// if this is the first click and we have clicked on a bomb
@@ -238,7 +311,7 @@ function render(grid, bombs, first_run) {
 				}
 				const result = revealTile(grid, i, x);
 
-				if(win_loss_continue(result)){
+				if(win_loss_continue(result, grid)){
 				render(grid, bombs, false);
 				}
 				else{
