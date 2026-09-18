@@ -231,7 +231,7 @@ function render(grid, bombs, first_run) {
 			});
 		}
 		const column = document.createElement("div");
-		column.className = "icon-thing";
+		column.className = "icon-thing letter-stack";
 		column.textContent = numtoLetter(i);
 		currentdiv.appendChild(column);
 	}

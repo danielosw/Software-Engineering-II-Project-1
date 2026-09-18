@@ -326,6 +326,7 @@ body {
 .grid-column{
     display: block grid;
 	grid-auto-flow: column;
+    grid-auto-columns: 3rem;
 }
 /* Each individual square in the Minesweeper grid */
 .button{
@@ -358,11 +359,16 @@ body {
 }
 
 .icon-thing{
-	border-radius:.375rem;
-	width: 2.5rem;
-	height: 2.5rem;
-	margin: 0;
-  	line-height:1.42857;
+    border-radius: .375rem;
+    width: 3rem;
+    height: 1.5rem;
+    margin: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Press Start 2P", monospace;
+    font-size: 70%;
 }
 
 .hidden-tile{
@@ -424,4 +430,10 @@ body {
 #volume-icon {
     width: 100%;
     height: 100%;
+}
+
+.letter-stack {
+    position: relative;
+    top: .7rem;
+    left: -0.5rem;
 }
