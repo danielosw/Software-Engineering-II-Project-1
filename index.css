@@ -1,3 +1,25 @@
+#intro-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    background: black;
+    color: white;
+
+    font-family: "Press Start 2P", monospace;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 9999;
+
+    cursor: pointer;
+}
+
 body {
 	background-color: #ebedfd;
 }
@@ -356,4 +378,13 @@ body {
 	font-family: "Press Start 2P", monospace;
 	font-size: .8rem;
 	width: 20vw;
+}
+
+.out-of-range-message {
+	position: absolute;
+	font-family: "Press Start 2P", monospace;
+	top: 65vh;
+	left: 23.75vw;
+	color:#ff0e3e;
+	font-size: 60%;
 }

@@ -37,6 +37,36 @@ function startup(bombs) {
 // this waits for the page load
 // because otherwise we try to manipulate the dom before 
 window.addEventListener("load", () => {
+
+	// RPM
+	// Adds the intro screen being a black screen to prompt user into beginning
+	const introScreen = document.getElementById("intro-screen");
+	let gameStarted = false;
+
+	function beginGame() {
+		if (gameStarted) {
+			return;
+		}
+
+		gameStarted = true;
+
+		const main_theme = new Audio("minesweeper_theme.mp3");
+		const theme_minus_explostion = new Audio("minesweeper_default.mp3");
+
+		introScreen.style.display = "none";
+
+		main_theme.play();
+
+		main_theme.addEventListener("ended", () => {
+			theme_minus_explostion.loop = true;
+			theme_minus_explostion.play();
+		});
+	}
+
+	introScreen.addEventListener("click", beginGame);
+	document.addEventListener("keydown", beginGame);
+
+
 	const container = document.getElementById("main-container");
 	const currentdiv = document.createElement("div");
 	const bonusInstuctions = document.createElement("div");
@@ -92,7 +122,8 @@ window.addEventListener("load", () => {
 		startup(input.value);
 		}
 		else{
-			bonusInstuctions.textContent = "You can only have betweeen 10-20 mines!";
+			bonusInstuctions.className = "out-of-range-message"
+			bonusInstuctions.textContent = "Please select between 10-20 mines.";
 
 		}
 	});
