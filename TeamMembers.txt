@@ -49,5 +49,26 @@ Available Times: Tuesday: 8am-9am, 11am-3pm
 Available Times: Wednesday 8am-9:30am, 12pm-1:40pm, 4pm-7pm
 Available Times: Thursday: 8am-9am, 4pm-7pm
 Available Times: Friday 8am-9:30am, 12pm-1:40pm, 4pm-7pm
+--------------------
+Name: Christopher Brush
+Contact Info: cbr@ku.edu, macroura
+Expertise: Python, C/C++, SQL, Haskell, HTML, CSS, JAvascript, Linux
+Available times:
+Monday: 8-10 AM
+Tuesday: 8-10 AM
+Wednesday: 8-10 AM
+Thursday: 8-11 AM 3PM-7PM
+Friday: 8-10 AM
+--------------------
+Name: Ruben Pino-Martinez
+Contact Info: rpm@ku.edu, Macronyx
+Expertise: Python, C++, CSS, JavaScript, Linux
+Available Times-
+Monday: 8:00 AM - 10:00 AM, 12:30 PM - 3:00 PM, 6:00 PM - 9:00 PM
+Tuesday: 10:00 AM - 1:00 PM, 6:00 PM - 9:00 PM
+Wednesday: 8:00 AM - 10:00 AM, 12:30 PM - 3:00 PM, 7:00 PM - 9:00 PM
+Thursday: 10:00 AM - 12:00 PM, 3:00 PM - 9:00 PM
+Friday: 8:00 AM - 11:00 AM, 12:00 PM - 3:00 PM, 6:00 PM - 9:00 PM
+
 
 
