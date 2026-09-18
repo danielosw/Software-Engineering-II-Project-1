@@ -43,25 +43,54 @@ window.addEventListener("load", () => {
 	const introScreen = document.getElementById("intro-screen");
 	let gameStarted = false;
 
+	const main_theme = new Audio("minesweeper_theme.mp3");
+	const theme_minus_explosion = new Audio("minesweeper_default.mp3");
+
+	let currentMusic = main_theme;
+	let musicPaused = false;
+
 	function beginGame() {
 		if (gameStarted) {
 			return;
 		}
+		setTimeout(()=>{
+			input.style.display = "block";
+			button.style.display = "block";
+			titlebar.style.display = "block";
+		}, 3000);
 
 		gameStarted = true;
 
-		const main_theme = new Audio("minesweeper_theme.mp3");
-		const theme_minus_explostion = new Audio("minesweeper_default.mp3");
-
 		introScreen.style.display = "none";
+
+		document.body.classList.add("game-started");
 
 		main_theme.play();
 
 		main_theme.addEventListener("ended", () => {
-			theme_minus_explostion.loop = true;
-			theme_minus_explostion.play();
+			currentMusic = theme_minus_explosion;
+
+			theme_minus_explosion.loop = true;
+			theme_minus_explosion.play();
 		});
 	}
+
+	const volumeButton = document.getElementById("volume-button");
+	const volumeIcon = document.getElementById("volume-icon");
+
+	volumeButton.addEventListener("click", () => {
+
+		if (musicPaused) {
+			currentMusic.play();
+			volumeIcon.src = "volume_on.png";
+			musicPaused = false;
+		}
+		else {
+			currentMusic.pause();
+			volumeIcon.src = "volume_off.png";
+			musicPaused = true;
+		}
+	});
 
 	introScreen.addEventListener("click", beginGame);
 	document.addEventListener("keydown", beginGame);
@@ -87,26 +116,17 @@ window.addEventListener("load", () => {
 	input.className = "prompt-box";
 
 	input.style.display = "none";
-	setTimeout(()=>{
-		input.style.display = "block"
-	}, 3000);
 
 	const button = document.createElement("button");
 
 	// RPM
 	// adding code that would have the button be unable to be seen/pressed until after beginning animation
 	button.style.display = "none";
-	setTimeout(()=>{
-		button.style.display = "block";
-	}, 3000);
 
 	titlebar.textContent = "ENTER AMOUNT OF MINES (10-20), THEN PRESS START."
 
 
 	titlebar.style.display = "none";
-	setTimeout(()=>{
-		titlebar.style.display = "block";
-	}, 3000);
 
 	button.className = "old-button";
 	input.id = "bombNumber";
