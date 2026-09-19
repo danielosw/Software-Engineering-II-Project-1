@@ -321,7 +321,11 @@ function render(grid, bombs, first_run) {
 			button.addEventListener("contextmenu", (e) => {
 				// prevent the right click menu from actually opening
 				e.preventDefault();
-				flagTile(grid, i, x);
+
+				if (!tile.isFlipped && (!tile.isFlagged && flags < bombs || tile.isFlagged)) {
+					flagTile(grid, i, x);
+				}
+
 				render(grid, bombs, false);
 			});
 		}
