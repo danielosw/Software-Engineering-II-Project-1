@@ -1,9 +1,13 @@
 Team Members
 --------------------
-Name:
-Contact Info:
-Expertise (programming languages, operating systems, computing platforms,...): 
-Available Times: 
+Name: Ian (Eden) Ruebelmann
+Contact Info: i155r697@ku.edu, Konegio on Discord & Github
+Expertise (programming languages, operating systems, computing platforms,...): Python, C/C++/C#, Rust, Linux
+Available Times: Monday (8am-11am)
+                 Tuesday (8am-2pm)
+                 Wednesday (8am-11am, 2pm-8pm)
+                 Thursday (8am-2am, 3:30pm-8pm)
+                 Friday (8am-11am)
 --------------------
 Name: Hannah Prosch
 Contact Info: hannahprosch@ku.edu, evergreen9408 (Discord)
