@@ -1,10 +1,5 @@
 Team Members
 --------------------
-Name:
-Contact Info:
-Expertise (programming languages, operating systems, computing platforms,...): 
-Available Times: 
---------------------
 Name: Hannah Prosch
 Contact Info: hannahprosch@ku.edu, evergreen9408 (Discord)
 Expertise (programming languages, operating systems, computing platforms,...): C, Java, Python, JavaScript, HTML, CSS, SQL
@@ -68,4 +63,14 @@ Tuesday: 8-10 AM
 Wednesday: 8-10 AM
 Thursday: 8-11 AM 3PM-7PM
 Friday: 8-10 AM
+--------------------
+Name: Ruben Pino-Martinez
+Contact Info: rpm@ku.edu, Macronyx
+Expertise: Python, C++, CSS, JavaScript, Linux
+Available Times-
+Monday: 8:00 AM - 10:00 AM, 12:30 PM - 3:00 PM, 6:00 PM - 9:00 PM
+Tuesday: 10:00 AM - 1:00 PM, 6:00 PM - 9:00 PM
+Wednesday: 8:00 AM - 10:00 AM, 12:30 PM - 3:00 PM, 7:00 PM - 9:00 PM
+Thursday: 10:00 AM - 12:00 PM, 3:00 PM - 9:00 PM
+Friday: 8:00 AM - 11:00 AM, 12:00 PM - 3:00 PM, 6:00 PM - 9:00 PM
 
