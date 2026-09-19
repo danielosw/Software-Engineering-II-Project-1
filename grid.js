@@ -1,3 +1,21 @@
+/*
+  * Comment by Forest Denton
+  * Note, for the recReveal function, Gemini 3.1 was used for iterating through all the tiles within 1 tile from the coordinates
+  * AI was used because the task is relatively straightforward, limited in scope, and tedious to program, and since I don't have much 
+  * familiarity with javascript, it certainly made things easier. Any line made with AI will be adequetly marked
+  *
+  * for the recReveal function, the following prompt was given to Gemini 3.1 Pro with extended thinking:
+  * " can you write me a simple addition to this function that just determines what tiles around the current tile should be checked? The addition should check if we're on the edge of the grid, and likewise not test that null location
+      function recReveal(grid, xCord, yCord){ // mis flagged tiles that are 0 don't get revealed
+        grid[xCord][yCord].isFlipped = true;
+        remaining_tiles -= 1;
+      // current tile is done, now to figure out edges 
+      }"
+  * the result was evaluated by using the simple gridPrint function with a manually changed sample grid.
+  * There was very few limitations or challenges using AI, as the function was relatively simple
+  *
+*/
+
 class Tile {
 	constructor()
 	{
@@ -160,27 +178,32 @@ printGrid(testGrid);
 
 var remaining_tiles = 0 // amount of non bomb tiles unrevealed, will be initialized in the init function
 
-// When a tile is clicked, just pass along the grid, and x/y cord as ints, and this should take care of the rest 
-// It will also return the game state after revealing the tile. 
+/*
+ * Inputs: grid (2d array of tiles), xCord of clicked tile, yCord of clicked tile
+ * Outputs: Game condition
+ * Purpose: When a tile is clicked, just pass along the grid, and x/y cord as ints, and this should take care of the rest 
+            It will also return the game state after revealing the tile. 
+  Forest Denton, 9/19 4:45pm
+*/
 function revealTile(grid, xCord, yCord)
 {
-  let cur_tile = grid[xCord][yCord] 
-  if (!cur_tile.isFlagged && !cur_tile.isFlipped)
+  let cur_tile = grid[xCord][yCord] // makes operations easier
+  if (!cur_tile.isFlagged && !cur_tile.isFlipped) // if the tile isn't flagged nor fliped
   {
-    if (checkTile(cur_tile) == "B"){
+    if (checkTile(cur_tile) == "B"){  // if bomb has been clicked
       return "Game Over: Loss";
     }
-    if (checkTile(cur_tile) == 0)
+    if (checkTile(cur_tile) == 0) // if the tile has zero bombs around it
     {
-      recReveal(grid, xCord, yCord)
+      recReveal(grid, xCord, yCord) // we need to check to see if there's any other 0 bomb tiles around it
     }
     else
     {
-      cur_tile.isFlipped = true;
+      cur_tile.isFlipped = true; // tile has been successfully flipped, and had at least one bomb around it
       remaining_tiles -= 1; // one less non-bomb tile revealed 
     }
     // now to check gameState
-    if (remaining_tiles == 0)
+    if (remaining_tiles == 0) // if all non bomb tiles have been clicked
     {
       return "Victory";
     }
@@ -191,7 +214,13 @@ function revealTile(grid, xCord, yCord)
   return "Playing";  // tried to reveal flagged tile
 }
 
-// Flagging a tile
+/*
+ * Inputs: (2d array of tiles), xCord of flagged tile, yCord of flagged tile 
+ * Outputs: None 
+ * Purpose: easily change the flagged state of a tiles 
+ * Forest Denton 9_19_26 4:48pm
+
+*/
 function flagTile(grid, xCord, yCord)
 {
   if (grid[xCord][yCord].isFlagged){
@@ -204,24 +233,29 @@ function flagTile(grid, xCord, yCord)
   return;
 }
 
+/*
+  * Inputs: grid (2d array of tiles), xCord of target 0 bomb tile, yCord of target 0 bomb tiles
+  * Outputs: None 
+  * Purpose: if a tile has 0 bombs around it, we need to recursively ensure that every other 0 bomb tile around it is revealed
+  * Forest Denton, 9_19_26 4:50pm
+*/
 function recReveal(grid, xCord, yCord){ // mis flagged tiles that are 0 don't get revealed
   grid[xCord][yCord].isFlipped = true;
   remaining_tiles -= 1;
   // current tile is done, now to figure out edges 
   // Note: I used gemini 3.1 pro for figuring out these edges 
-  for (let dx = -1; dx <= 1; dx++) {
-    for (let dy = -1; dy <= 1; dy++) {
-      // Skip the current tile itself
-      if (dx === 0 && dy === 0) continue;
+  for (let dx = -1; dx <= 1; dx++) { // AI, goes through possible x cords
+    for (let dy = -1; dy <= 1; dy++) { // AI, goes through possible y cords
+      if (dx === 0 && dy === 0) continue; // AI, if we're just looking at the current tile, ignore
       
-      let checkX = xCord + dx;
-      let checkY = yCord + dy;
+      let checkX = xCord + dx; // AI, store as a temp variable to later check if our location is a null value
+      let checkY = yCord + dy; //AI
       
       // Check if the coordinates are within the grid bounds
-      if (checkX >= 0 && checkX < grid_width && 
-          checkY >= 0 && checkY < grid_height) {
+      if (checkX >= 0 && checkX < grid_width && // AI, make sure we're in bounds
+          checkY >= 0 && checkY < grid_height) { //AU 
           
-          // The tile is safe to check! 
+          // We now know the value is safe, and past this point, there was no AI use for the rest of this function
           let neighborTile = grid[checkX][checkY];
           if (!neighborTile.isFlipped && !neighborTile.isFlagged) // ignore flipped and flagged tiles 
           {
@@ -230,7 +264,7 @@ function recReveal(grid, xCord, yCord){ // mis flagged tiles that are 0 don't ge
               recReveal(grid, checkX, checkY)
           
             }
-            else
+            else // if the discovered tile does indeed have a bomb somewhere near it
             {
               neighborTile.isFlipped = true;
               remaining_tiles -= 1;
