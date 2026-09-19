@@ -1,22 +1,33 @@
+/* Element (unique) is black screen with word "Click to begin..." */
 #intro-screen {
+    /* Control how items inside this box is lined up*/
+    display: flex;
+    /* where stuff inside the flex goes */
+    justify-content: center;
+    /* where stuff is aligned vertically */
+    align-items: center;
+
+    background: black;
+    font-family: "Press Start 2P", monospace;
+    color: white;
+
     position: fixed;
+
+    /* Black starts on the top left of screen */
     top: 0;
     left: 0;
 
+    /* 100vw in width means 100% of screen width, wheras 100% alone means 100% of parent width */
     width: 100vw;
+    /* 100 vh in height means 100% of screen height, whereas 100% alone means 100% of parent height */
     height: 100vh;
 
-    background: black;
-    color: white;
-
-    font-family: "Press Start 2P", monospace;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+    /* z-index is indicative of where things stack on top of another, 
+    9999 is meant to be an exaggerative way to indicate that this should be above
+    everything else when its on. */
     z-index: 9999;
 
+    /* tells CSS that this #intro-screen is clickable */
     cursor: pointer;
 }
 
