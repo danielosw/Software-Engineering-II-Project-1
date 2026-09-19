@@ -42,6 +42,10 @@ function lose(grid) {
 		blackScreen.innerHTML = "";
 		blackScreen.style.zIndex = "8";
 		blackScreen.style.display = "flex";
+
+		blackScreen.style.opacity = "0";
+		blackScreen.style.transition = "opacity 1s ease";
+
 		blackScreen.style.flexDirection = "column";
 
 		// Begin fade to black
@@ -49,7 +53,9 @@ function lose(grid) {
 		blackScreen.style.transition = "opacity 1s ease";
 
 		requestAnimationFrame(() => {
-			blackScreen.style.opacity = "1";
+			requestAnimationFrame(() => {
+				blackScreen.style.opacity = "1";
+			});
 		});
 
 		// After fade finishes, show message
@@ -61,9 +67,9 @@ function lose(grid) {
 			// Then show restart button
 			setTimeout(() => {
 				addRestartButton(blackScreen);
-			}, 500);
+			}, 1500);
 
-		}, 1000);
+		}, 2000);
 
 	}, 1500);
 }
@@ -76,7 +82,8 @@ function win() {
 
 function addRestartButton(container) {
 	const button = document.createElement("button");
-	button.textContent = "restart";
+	button.className = "restart-button";
+	button.textContent = "RESTART";
 	button.addEventListener("click", () => window.location.reload());
 	container.appendChild(button);
 }

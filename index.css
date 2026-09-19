@@ -406,11 +406,12 @@ body {
 	width: 20vw;
 }
 
+/* "Error" message for choosing more bombs than 20 and less bombs than 10 */
 .out-of-range-message {
 	position: absolute;
 	font-family: "Press Start 2P", monospace;
 	top: 65vh;
-	left: 23.75vw;
+	left: -6vw;
 	color:#ff0e3e;
 	font-size: 60%;
 }
@@ -464,10 +465,21 @@ body {
     left: 10%;
     top: calc(48% - 18rem);
     transform: translateX(-50%);
+    font-family: "Press Start 2P", monospace;
 }
 
 #game-area {
 	position: relative;
 	width: fit-content;
 	margin: 0 auto;
+}
+
+.restart-button {
+    background-color:red;
+    font-family: "Press Start 2P", monospace;
+
+    position: absolute;
+	top: 55%;
+	left: 50%;
+	transform: translateX(-50%) scale(1.5);
 }
