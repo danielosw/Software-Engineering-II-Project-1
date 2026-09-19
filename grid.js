@@ -155,11 +155,6 @@ function printGrid(grid)
 
 
 
-// Example for how to generate a new grid (Ian R : 9/14/2026 10:25 AM)
-let testGrid = buildGrid(10, 10, 10);
-printGrid(testGrid);
-
-
 var remaining_tiles = 0 // amount of non bomb tiles unrevealed, will be initialized in the init function
 
 // When a tile is clicked, just pass along the grid, and x/y cord as ints, and this should take care of the rest 
@@ -196,6 +191,11 @@ function revealTile(grid, xCord, yCord)
 // Flagging a tile
 function flagTile(grid, xCord, yCord)
 {
+	// revealed tiles cannot be flagged
+	if (grid[xCord][yCord].isFlipped)
+	{
+		return;
+	}
   if (grid[xCord][yCord].isFlagged){
     grid[xCord][yCord].isFlagged = false; // flagging a flagged tile = unflagged tile
   }
