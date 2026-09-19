@@ -8,9 +8,13 @@
     align-items: center;
 
     background: black;
-    font-family: "Press Start 2P", monospace;
-    color: white;
 
+    /* color of the words */
+    color: white;
+    /* monospace is backup font if font in "quotes" is not working/available */
+    font-family: "Press Start 2P", monospace;
+
+    /* fixed = stuck to screen, scrolling does not move it */
     position: fixed;
 
     /* Black starts on the top left of screen */
@@ -31,18 +35,28 @@
     cursor: pointer;
 }
 
+/* Color of the webpage */
 body {
 	background-color: #ebedfd;
 }
 
+/* Title card, the "MINESWEEPER" text */
 .title{
+    /* positioned relative to to nearest positioned parent */
 	position: absolute;
+
 	font-family: "Press Start 2P", monospace;
+    /* color of words */
 	color: #ff0e3e;
 	font-size: 50px;
 	left: 46%;
+
+    /* the left edge of class selector (.title) is now the middle because of translateX(50%)  */
 	transform: translateX(-50%);
+
+    /* animation is set as none but will be replaced by the class selector (.game-started .title) where it has "fall 2s ease-in forwards */
 	animation: none;
+    /* set at 2 because the shadow below the text is set at 1, so 2 places title above the shadow at 1 */
 	z-index: 2;
 }
 
