@@ -14,21 +14,6 @@ function win_loss_continue(input,grid) {
 	}
 }
 
-// function lose(){
-// 	currentMusic.pause();
-// 	const blackScreenText = document.getElementById("intro-screen");
-// 	blackScreenText.textContent = "you just lost the game";
-// 	blackScreenText.style.zIndex = 8;
-// 	blackScreenText.style.display = "flex";
-
-// 	resetScreen();
-// }
-
-// function win(){
-// 	let container = resetScreen();
-// 	container.textContent = "You win!"
-// }
-
 
 function lose(grid) {
 	// Stop music immediately
@@ -215,10 +200,11 @@ window.addEventListener("load", () => {
 	container.appendChild(bonusInstuctions)
 	container.appendChild(input);
 	container.appendChild(button);
+
 	button.addEventListener("click", () => {
 		if(input.value>=10 && input.value<=20){
 			document.querySelectorAll(
-				".title, .title-shadow, .title-fire, .title-explosion"
+				".title, .title-shadow, .title-fire, .title-explosion, .webpage_art"
 			).forEach(element => {
 				element.style.display = "none";
 			});
@@ -346,8 +332,22 @@ function render(grid, bombs, first_run) {
 
 	const containertwo = document.getElementById("container-two");
 	containertwo.innerHTML = "";
-	const numberdisplay = document.createElement("p");
+
+
+	
+	const flagCounter = document.createElement("div");
+	flagCounter.className = "flag-counter";
+
+	const flagIcon = document.createElement("span");
+	flagIcon.textContent = "🚩";
+
+	const flagNumber = document.createElement("span");
 	const diff = bombs - flags;
-	numberdisplay.textContent = `Remaining flags: ${diff}`;
-	containertwo.appendChild(numberdisplay);
+	flagNumber.textContent = diff;
+
+	flagCounter.appendChild(flagIcon);
+	flagCounter.appendChild(flagNumber);
+
+	containertwo.appendChild(flagCounter);
+
 }

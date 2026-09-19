@@ -454,3 +454,20 @@ body {
 .tile-three {
     color: red;
 }
+
+.flag-counter {
+    font-size: 200%;
+}
+
+#container-two {
+    position: absolute;
+    left: 10%;
+    top: calc(48% - 18rem);
+    transform: translateX(-50%);
+}
+
+#game-area {
+	position: relative;
+	width: fit-content;
+	margin: 0 auto;
+}
