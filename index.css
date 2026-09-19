@@ -1,3 +1,314 @@
+#intro-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    background: black;
+    color: white;
+
+    font-family: "Press Start 2P", monospace;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 9999;
+
+    cursor: pointer;
+}
+
+body {
+	background-color: #ebedfd;
+}
+
+.title{
+	position: absolute;
+	font-family: "Press Start 2P", monospace;
+	color: #ff0e3e;
+	font-size: 50px;
+	left: 46%;
+	transform: translateX(-50%);
+	animation: none;
+	z-index: 2;
+}
+
+.game-started .title {
+	animation: fall 2s ease-in forwards;
+}
+
+@keyframes fall {
+	from {
+		top: -3000px;
+	}
+	to {
+		top: 25%;
+	}
+}
+
+.title-shadow {
+    position: absolute;
+
+    left: 48%;
+    top: 36%;
+
+    width: 400px;
+    height: 9px;
+
+    background-color: black;
+    border-radius: 50%;
+    filter: blur(10px);
+
+    opacity: 0;
+    transform: translateX(-50%) scale(0.3);
+
+    animation: none;
+	z-index: 1;
+}
+
+.game-started .title-shadow {
+	animation: shadow-grow 2s ease-in forwards;
+}
+
+@keyframes shadow-grow {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.3);
+    }
+
+    to {
+        opacity: 0.85;
+        transform: translateX(-50%) scale(1.5);
+    }
+}
+
+.title-explosion {
+    width: 130px;
+    height: 130px;
+
+    background-image: url("explode-sprite-sheet.png");
+    background-repeat: no-repeat;
+
+    position: absolute;
+    left: 47%;
+    top: 25%;
+
+    transform: translateX(-50%) scaleX(8) scaleY(3);
+    transform-origin: center;
+
+    z-index: 4;
+    opacity: 0;
+
+	pointer-events: none;
+    animation: none;
+}
+
+.game-started .title-explosion {
+	animation: explode 0.7s steps(1) 2s forwards;
+}
+
+@keyframes explode {
+    0% {
+        background-position: 0px 0px;
+        opacity: 1;
+    }
+
+    4% {
+        background-position: -130px 0px;
+    }
+
+    8% {
+        background-position: -260px 0px;
+    }
+
+    12% {
+        background-position: -390px 0px;
+    }
+
+    16% {
+        background-position: -520px 0px;
+    }
+
+    20% {
+        background-position: 0px -130px;
+    }
+
+    24% {
+        background-position: -130px -130px;
+    }
+
+    28% {
+        background-position: -260px -130px;
+    }
+
+    32% {
+        background-position: -390px -130px;
+    }
+
+    36% {
+        background-position: -520px -130px;
+    }
+
+    40% {
+        background-position: 0px -260px;
+    }
+
+    44% {
+        background-position: -130px -260px;
+    }
+
+    48% {
+        background-position: -260px -260px;
+    }
+
+    52% {
+        background-position: -390px -260px;
+    }
+
+    56% {
+        background-position: -520px -260px;
+    }
+
+    60% {
+        background-position: 0px -390px;
+    }
+
+    64% {
+        background-position: -130px -390px;
+    }
+
+    68% {
+        background-position: -260px -390px;
+    }
+
+    72% {
+        background-position: -390px -390px;
+    }
+
+    76% {
+        background-position: -520px -390px;
+    }
+
+    80% {
+        background-position: 0px -520px;
+    }
+
+    84% {
+        background-position: -130px -520px;
+    }
+
+    88% {
+        background-position: -260px -520px;
+    }
+
+    92% {
+        background-position: -390px -520px;
+    }
+
+    96% {
+        background-position: -520px -520px;
+    }
+
+    100% {
+        background-position: -520px -520px;
+        opacity: 0;
+    }
+}
+
+.title-fire {
+    width: 120px;
+    height: 120px;
+
+    background-image: url("ongoing_fire_sprite_sheet.png");
+    background-repeat: no-repeat;
+
+    position: absolute;
+    left: 30%;
+    top: 21%;
+
+    transform: translateX(-50%) scale(0.3);
+    transform-origin: center;
+
+    z-index: 3;
+
+    opacity: 0;
+
+    animation: none;
+}
+
+.game-started .title-fire {
+	animation: fire-animation 0.7s steps(1) 2.3s infinite;
+}
+
+.fire-one {
+    left: 30%;
+    top: 21%;
+}
+
+.fire-two {
+    left: 43%;
+    top: 27%;
+}
+
+.fire-three {
+    left: 60%;
+    top: 22%;
+}
+
+@keyframes fire-animation {
+    0% {
+        background-position: 0px 0px;
+        opacity: 1;
+    }
+
+    11% {
+        background-position: -120px 0px;
+        opacity: 1;
+    }
+
+    22% {
+        background-position: -240px 0px;
+        opacity: 1;
+    }
+
+    33% {
+        background-position: 0px -120px;
+        opacity: 1;
+    }
+
+    44% {
+        background-position: -120px -120px;
+        opacity: 1;
+    }
+
+    55% {
+        background-position: -240px -120px;
+        opacity: 1;
+    }
+
+    66% {
+        background-position: 0px -240px;
+        opacity: 1;
+    }
+
+    77% {
+        background-position: -120px -240px;
+        opacity: 1;
+    }
+
+    88% {
+        background-position: -240px -240px;
+        opacity: 1;
+    }
+
+    100% {
+        background-position: 0px 0px;
+        opacity: 1;
+    }
+}
+
 .grid-center{
     display: block grid;
 	justify-content: center;
@@ -7,42 +318,168 @@
 .grid-stack{
     display: block grid;
 	gap: 0;
-	justify-content: start;
-	align-content: start;
+	justify-content: center;
+	align-content: center;
+	height: 100vh
 
 }
 .grid-column{
     display: block grid;
 	grid-auto-flow: column;
+    grid-auto-columns: 3rem;
 }
+/* Each individual square in the Minesweeper grid */
 .button{
-	border-radius:.375rem;
-	width: 2.5rem;
-	height: 2.5rem;
+	/* how rounded the corners are */
+	border-radius:.200rem;
+	width: 3rem;
+	height: 3rem;
+	/*space between each square */
 	margin: 0;
-  line-height:1.42857;
-}
-.old-button{
-	border-radius:.375rem;
-  padding-left:1.25rem;
-  padding-right:1.25rem;
-  padding-top:.625rem;
-  padding-bottom:.625rem;
-  font-size:.875rem;
-  line-height:1.42857;
+  	line-height:1.42857;
 }
 
+/* START BUTTON */
+.old-button {
+	position: relative;
+    background-color: green;
+    color: white;
+    border: 3px solid black;
+
+    padding: .4rem .75rem;
+
+    font-family: "Press Start 2P", monospace;
+    font-size: .875rem;
+
+	left: -6.5vw;
+	top: 1vh;
+
+    /* justify-self: center; */
+    width: fit-content;
+}
+
+/* Number "row" */
 .icon-thing{
-	border-radius:.375rem;
-	width: 2.5rem;
-	height: 2.5rem;
-	margin: 0;
-  line-height:1.42857;
+    border-radius: .375rem;
+    width: 3rem;
+    height: 1.5rem;
+    margin: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Press Start 2P", monospace;
+    font-size: 70%;
 }
 
+/* blocks before "revealed" */
 .hidden-tile{
 	background-color: gray;
 }
+/* block color after "revealed" */
 .revealed-tile{
 	background-color: white;
+    font-family: "Press Start 2P", monospace;
+}
+
+.webpage_art{
+	width: 40%;
+	height: auto;
+	position: absolute;
+	left: 74%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+}
+
+.mine-prompt {
+	position: relative;
+	font-family: "Press Start 2P", monospace;
+	font-size: .65rem;
+	left: -6.5vw;
+}
+
+.prompt-box {
+	position: relative;
+	left: -6.5vw;
+	font-family: "Press Start 2P", monospace;
+	font-size: .8rem;
+	width: 20vw;
+}
+
+/* "Error" message for choosing more bombs than 20 and less bombs than 10 */
+.out-of-range-message {
+	position: absolute;
+	font-family: "Press Start 2P", monospace;
+	top: 65vh;
+	left: -6vw;
+	color:#ff0e3e;
+	font-size: 60%;
+}
+
+#volume-button {
+    position: absolute;
+    bottom: 3%;
+    left: 3%;
+
+    width: 50px;
+    height: 50px;
+
+    background: none;
+    border: none;
+    padding: 0;
+
+    cursor: pointer;
+    z-index: 7;
+}
+
+#volume-icon {
+    width: 100%;
+    height: 100%;
+}
+
+.letter-stack {
+    position: relative;
+    top: .7rem;
+    left: -0.5rem;
+}
+
+.tile-zero {
+    color: gray;
+}
+.tile-one{
+    color: blue;
+}
+.tile-two {
+    color: green;
+}
+.tile-three {
+    color: red;
+}
+
+.flag-counter {
+    font-size: 200%;
+}
+
+#container-two {
+    position: absolute;
+    left: 10%;
+    top: calc(48% - 18rem);
+    transform: translateX(-50%);
+    font-family: "Press Start 2P", monospace;
+}
+
+#game-area {
+	position: relative;
+	width: fit-content;
+	margin: 0 auto;
+}
+
+.restart-button {
+    background-color:red;
+    font-family: "Press Start 2P", monospace;
+
+    position: absolute;
+	top: 55%;
+	left: 50%;
+	transform: translateX(-50%) scale(1.5);
 }

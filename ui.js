@@ -1,4 +1,7 @@
-function win_loss_continue(input, grid) {
+let currentMusic;
+
+/*OLD VERSION, TO BE REPLACED*/
+function win_loss_continue(input,grid) {
 	if (input === "Game Over: Loss") {
 		lose(grid)
 		return false;
@@ -10,32 +13,81 @@ function win_loss_continue(input, grid) {
 		return true
 	}
 }
-function lose(grid){
-	// show every mine after the player loses
+
+
+function lose(grid) {
+	// Stop music immediately
+	currentMusic.pause();
+
+	// Reveal every mine
 	grid.flat().forEach((tile) => {
 		if (tile.isBomb) {
 			tile.isFlipped = true;
 		}
 	});
+
+	// Show the board with the mines revealed
 	render(grid, grid.flat().filter((tile) => tile.isBomb).length, false);
+
+	// Prevent the player from clicking anything
 	const container = document.getElementById("main-container");
-	const message = document.createElement("p");
-	message.textContent = "You lose!";
-	container.appendChild(message);
-	container.querySelectorAll("button").forEach((button) => button.disabled = true);
-	addRestartButton(container);
+	container.querySelectorAll("button").forEach((button) => {
+		button.disabled = true;
+	});
+
+	// Let player see the board first
+	setTimeout(() => {
+		const blackScreen = document.getElementById("intro-screen");
+
+		blackScreen.innerHTML = "";
+		blackScreen.style.zIndex = "8";
+		blackScreen.style.display = "flex";
+
+		blackScreen.style.opacity = "0";
+		blackScreen.style.transition = "opacity 1s ease";
+
+		blackScreen.style.flexDirection = "column";
+
+		// Begin fade to black
+		blackScreen.style.opacity = "0";
+		blackScreen.style.transition = "opacity 1s ease";
+
+		requestAnimationFrame(() => {
+			requestAnimationFrame(() => {
+				blackScreen.style.opacity = "1";
+			});
+		});
+
+		// After fade finishes, show message
+		setTimeout(() => {
+			const message = document.createElement("p");
+			message.textContent = "you just lost the game.";
+			blackScreen.appendChild(message);
+
+			// Then show restart button
+			setTimeout(() => {
+				addRestartButton(blackScreen);
+			}, 1500);
+
+		}, 2000);
+
+	}, 1500);
 }
-function win(){
+
+function win() {
 	let container = resetScreen();
-	container.textContent = "You win!"
+	container.textContent = "You win!";
 	addRestartButton(container);
 }
+
 function addRestartButton(container) {
 	const button = document.createElement("button");
-	button.textContent = "restart";
+	button.className = "restart-button";
+	button.textContent = "RESTART";
 	button.addEventListener("click", () => window.location.reload());
 	container.appendChild(button);
 }
+
 function resetScreen() {
 	const container = document.getElementById("main-container");
 	const flags_remaining = document.getElementById("container-two");
@@ -55,30 +107,120 @@ function startup(bombs) {
 // this waits for the page load
 // because otherwise we try to manipulate the dom before 
 window.addEventListener("load", () => {
+
+	// RPM
+	// Adds the intro screen being a black screen to prompt user into beginning
+	const introScreen = document.getElementById("intro-screen");
+	let gameStarted = false;
+
+	const main_theme = new Audio("minesweeper_theme.mp3");
+	const theme_minus_explosion = new Audio("minesweeper_default.mp3");
+
+	currentMusic = main_theme;
+	let musicPaused = false;
+
+	function beginGame() {
+		if (gameStarted) {
+			return;
+		}
+		setTimeout(()=>{
+			input.style.display = "block";
+			button.style.display = "block";
+			titlebar.style.display = "block";
+		}, 3000);
+
+		gameStarted = true;
+
+		introScreen.style.display = "none";
+
+		document.body.classList.add("game-started");
+
+		main_theme.play();
+
+		main_theme.addEventListener("ended", () => {
+			currentMusic = theme_minus_explosion;
+
+			theme_minus_explosion.loop = true;
+			theme_minus_explosion.play();
+		});
+	}
+
+	const volumeButton = document.getElementById("volume-button");
+	const volumeIcon = document.getElementById("volume-icon");
+
+	volumeButton.addEventListener("click", () => {
+
+		if (musicPaused) {
+			currentMusic.play();
+			volumeIcon.src = "volume_on.png";
+			musicPaused = false;
+		}
+		else {
+			currentMusic.pause();
+			volumeIcon.src = "volume_off.png";
+			musicPaused = true;
+		}
+	});
+
+	introScreen.addEventListener("click", beginGame);
+	document.addEventListener("keydown", beginGame);
+
+
 	const container = document.getElementById("main-container");
 	const currentdiv = document.createElement("div");
 	const bonusInstuctions = document.createElement("div");
 	currentdiv.className = "grid-column";
 	container.appendChild(currentdiv);
 	const titlebar = document.createElement("p");
+
+	// RPM
+	// changing font and text for the mime-prompt in CSS
+	titlebar.className = "mine-prompt";
+
 	const input = document.createElement("input");
+
+	// RPM
+	// creating a place holder to let user know where to type
+	input.placeholder = "Type Here..."
+	// creating visual changes inside of CSS
+	input.className = "prompt-box";
+
+	input.style.display = "none";
+
 	const button = document.createElement("button");
-	titlebar.textContent = "Welcome to minesweeper! Input between the amount of mines you want (10-20) then press start."
+
+	// RPM
+	// adding code that would have the button be unable to be seen/pressed until after beginning animation
+	button.style.display = "none";
+
+	titlebar.textContent = "ENTER AMOUNT OF MINES (10-20), THEN PRESS START."
+
+
+	titlebar.style.display = "none";
+
 	button.className = "old-button";
 	input.id = "bombNumber";
 	input.type = "number"
 
-	button.textContent = "Start!";
+	button.textContent = "START";
 	container.appendChild(titlebar)
 	container.appendChild(bonusInstuctions)
 	container.appendChild(input);
 	container.appendChild(button);
+
 	button.addEventListener("click", () => {
-		if(input.value>=10 && input.value<=20 && Number.isInteger(Number(input.value))){
-			startup(Number(input.value));
+		if(input.value>=10 && input.value<=20){
+			document.querySelectorAll(
+				".title, .title-shadow, .title-fire, .title-explosion, .webpage_art"
+			).forEach(element => {
+				element.style.display = "none";
+			});
+			startup(input.value);
 		}
 		else{
-			bonusInstuctions.textContent = "You can only have betweeen 10-20 mines!";
+			bonusInstuctions.className = "out-of-range-message"
+			bonusInstuctions.textContent = "Please select between 10-20 mines.";
+
 		}
 	});
 });
@@ -126,26 +268,39 @@ function render(grid, bombs, first_run) {
 					button.textContent = "🚩";
 					flags += 1;
 				}
-			} else {
-				button.classList.add("revealed-tile");
-				if (tile.isBomb) {
-					button.textContent = "B";
-				} else if (tile.numSurroundingBombs > 0) {
-					button.textContent = tile.numSurroundingBombs;
+				} else {
+					button.classList.add("revealed-tile");
+
+					if (tile.isBomb) {
+						button.textContent = "B";
+					}
+					else if (tile.numSurroundingBombs !== undefined) {
+						button.textContent = tile.numSurroundingBombs;
+
+						if (tile.numSurroundingBombs === 0) {
+							button.classList.add("tile-zero");
+						}
+						else if (tile.numSurroundingBombs === 1) {
+							button.classList.add("tile-one");
+						}
+						else if (tile.numSurroundingBombs === 2) {
+							button.classList.add("tile-two");
+						}
+						else if (tile.numSurroundingBombs === 3) {
+							button.classList.add("tile-three");
+						}
+					}
 				}
-			}
 
 			button.addEventListener("click", () => {
 				// if this is the first click and we have clicked on a bomb
 				if(first_run && tile.isBomb == true){
-					// move the first clicked mine and refresh nearby numbers
 					// if this is a mine get a list of all non mine cells that are not this cell
-					let nonbombs = grid.flat(2).filter((tiler) => !tiler.isBomb && !tiler.isFlagged && tiler !== tile);
+					let nonbombs = grid.flat(2).filter((tiler) => !tiler.isBomb);
 					// disable the mine
 					tile.isBomb = false;
 					// set one of the non mine cells to a mine cell
 					nonbombs[Math.floor(Math.random() * (nonbombs.length-0)-0)].isBomb = true;
-					setTileNeighboringBombCounts(grid);
 				}
 				const result = revealTile(grid, i, x);
 
@@ -159,14 +314,16 @@ function render(grid, bombs, first_run) {
 			button.addEventListener("contextmenu", (e) => {
 				// prevent the right click menu from actually opening
 				e.preventDefault();
+
 				if (!tile.isFlipped && (!tile.isFlagged && flags < bombs || tile.isFlagged)) {
 					flagTile(grid, i, x);
 				}
+
 				render(grid, bombs, false);
 			});
 		}
 		const column = document.createElement("div");
-		column.className = "icon-thing";
+		column.className = "icon-thing letter-stack";
 		column.textContent = numtoLetter(i);
 		currentdiv.appendChild(column);
 	}
@@ -182,8 +339,22 @@ function render(grid, bombs, first_run) {
 
 	const containertwo = document.getElementById("container-two");
 	containertwo.innerHTML = "";
-	const numberdisplay = document.createElement("p");
+
+
+	
+	const flagCounter = document.createElement("div");
+	flagCounter.className = "flag-counter";
+
+	const flagIcon = document.createElement("span");
+	flagIcon.textContent = "🚩";
+
+	const flagNumber = document.createElement("span");
 	const diff = bombs - flags;
-	numberdisplay.textContent = `Remaining flags: ${diff}`;
-	containertwo.appendChild(numberdisplay);
+	flagNumber.textContent = diff;
+
+	flagCounter.appendChild(flagIcon);
+	flagCounter.appendChild(flagNumber);
+
+	containertwo.appendChild(flagCounter);
+
 }
