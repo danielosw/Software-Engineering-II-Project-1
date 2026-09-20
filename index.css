@@ -43,6 +43,60 @@ body {
 	background-color: #ebedfd;
 }
 
+/*
+AI USE — opening title special effects
+
+How/why AI was used:
+ChatGPT was used while developing and debugging the opening visual sequence:
+the MINESWEEPER title falling into place, the shadow growing beneath it, the
+explosion sprite playing after the title lands, and the looping fire sprites
+that remain around the title.
+
+Specific prompts entered:
+The exact original prompt that first created these opening effects is NOT
+present in the supplied chatgpthistory.txt; the supplied history begins with
+this animation code already present. I am not inventing an exact prompt that
+is not in the record.
+
+Later prompts in the supplied history that modified or validated how these
+effects interact with the rest of the page included:
+1. "cool but now one thing i noticed also is that the art for the title web
+page didnt show up until after the explositon, and was disaligned from where
+it was, i suspect that the resaon is becasue i put [the webpage art] inside
+of the id=\"game-area\", so how do i undo that but keep what you said"
+
+2. "Now I want to make the page clipart disapear when the game starts"
+
+3. "It did not remove it..." followed by the selector
+".title, .title-shadow, .title-fire, .title-explosion .webpage_art"
+
+Validation/revisions:
+The effects were visually tested as a sequence. Their timing is deliberately
+staggered: the title and shadow animate for 2 seconds, the explosion begins
+after a 2-second delay, and the fire begins after a 2.3-second delay. The
+z-index values were also arranged so the shadow is behind the title, the fire
+is above the title, and the explosion is above both. Later testing exposed a
+layout problem when webpage artwork was moved under #game-area, so the artwork
+was moved back outside that positioned parent. A selector typo was also fixed
+by adding the missing comma before .webpage_art when hiding the opening
+elements at game start.
+
+Challenges/limitations:
+The opening sequence combines multiple CSS animations, absolute positioning,
+sprite-sheet background offsets, transforms, delays, and z-index layers. This
+made the sequence sensitive to positioning changes elsewhere on the page. The
+exact original creation prompt is unavailable in the supplied history, so the
+documentation records the verified later prompts and the observed revisions
+instead of fabricating a prompt.
+
+AI-assisted section:
+.title, .game-started .title, @keyframes fall, .title-shadow,
+.game-started .title-shadow, @keyframes shadow-grow, .title-explosion,
+.game-started .title-explosion, @keyframes explode, .title-fire,
+.game-started .title-fire, .fire-one, .fire-two, .fire-three, and
+@keyframes fire-animation.
+*/
+
 /* Title card, the "MINESWEEPER" text */
 .title{
     /* positioned relative to to nearest positioned parent */
@@ -492,6 +546,40 @@ body {
     font-family: "Press Start 2P", monospace;
 }
 
+/*
+AI USE — webpage art / game-area layout
+
+How/why AI was used:
+ChatGPT was used to help keep the flag counter positioned with the
+Minesweeper grid across browser zoom levels, and then to correct the webpage
+artwork after grouping the grid and counter changed the artwork's position.
+
+Specific prompts entered:
+1. "first iage is on 50% zoom, the second image is on 100% zoom.
+is there a way to positionally keep the flag counter on top of the grid?"
+
+2. "cool but now one thing i noticed also is that the art for the title web
+page didnt show up until after the explositon, and was disaligned from where
+it was, i suspect that the resaon is becasue i put [the webpage art] inside
+of the id=\"game-area\", so how do i undo that but keep what you said"
+
+Validation/revisions:
+The layout was visually tested at multiple browser zoom levels. Moving the
+artwork inside #game-area changed the positioned parent used by its absolute
+positioning and made the image appear in the wrong place. The artwork was
+therefore moved outside #game-area while the grid and flag counter remained
+grouped together.
+
+Challenges/limitations:
+Using position: relative on #game-area changed the coordinate system for
+absolutely positioned descendants. The first structural change fixed the flag
+counter but unintentionally affected the artwork, so the structure had to be
+revised.
+
+AI-assisted section:
+The relationship between .webpage_art and the positioned #game-area wrapper.
+*/
+
 /*RPM*/
 /* decorative artwork shown beside the Minesweeper board */
 .webpage_art{
@@ -539,6 +627,39 @@ body {
 	color:#ff0e3e;
 	font-size: 60%;
 }
+
+/*
+AI USE — soundtrack volume-control UI
+
+How/why AI was used:
+ChatGPT was used as part of the soundtrack feature, including debugging how
+the currently playing music could be stopped when the game ended. This CSS
+section styles the button and icon that the JavaScript soundtrack controls
+use.
+
+Specific prompts entered:
+1. "how do i make it cut off music"
+
+2. "first step be more specific, lets go one step at a time"
+
+Validation/revisions:
+The soundtrack behavior was tested by confirming that the music stopped on
+loss. During debugging, currentMusic had to be moved to a scope that lose()
+could access. The JavaScript also switches between volume_on.png and
+volume_off.png when the player pauses or resumes the current track. The CSS
+here was kept focused on placing and sizing that volume control.
+
+Challenges/limitations:
+The actual soundtrack implementation is NOT contained in this CSS file.
+Audio creation, playback, looping, track switching, pausing, and icon-source
+changes occur in ui.js. This CSS only controls the visual placement and size
+of #volume-button and #volume-icon. The full AI-use record for the soundtrack
+should therefore also be documented in ui.js.
+
+AI-assisted section:
+The CSS-side presentation of #volume-button and #volume-icon as part of the
+AI-assisted soundtrack/volume-control feature.
+*/
 
 /*RPM*/
 /* button that holds the volume image */
@@ -594,6 +715,36 @@ body {
     color: red;
 }
 
+/*
+AI USE — flag counter positioning / game-area layout
+
+How/why AI was used:
+ChatGPT was used to help position the flag counter and keep it visually
+attached to the Minesweeper grid when the browser zoom level changed.
+
+Specific prompts entered:
+1. "cool, show me how to reposition it somewhere else on the screen"
+
+2. "first iage is on 50% zoom, the second image is on 100% zoom.
+is there a way to positionally keep the flag counter on top of the grid?"
+
+Validation/revisions:
+The counter was visually tested at different browser zoom levels, including
+50% and 100%. The first AI suggestion used position: fixed, which positioned
+the counter relative to the browser window and caused it to drift away from
+the grid when zoom changed. The layout was revised so #game-area became the
+positioning parent and #container-two used absolute positioning. The final
+offsets were manually adjusted to left: 10% and top: calc(48% - 18rem).
+
+Challenges/limitations:
+The first fixed-position approach did not keep the counter aligned with the
+grid across zoom levels. The grid also uses height: 100vh, so the counter's
+vertical position still required visual adjustment.
+
+AI-assisted section:
+The positioning approach used by .flag-counter, #container-two, and #game-area.
+*/
+
 /*CB*/
 /* flag counter showing the player how many flags are left */
 .flag-counter {
@@ -624,6 +775,42 @@ body {
     /* equal automatic left/right margins centers it */
 	margin: 0 auto;
 }
+
+/*
+AI USE — restart button positioning
+
+How/why AI was used:
+ChatGPT was used to connect the dynamically created restart button to a CSS
+class and to prevent the button from moving the "you just lost the game."
+text when the button appeared.
+
+Specific prompts entered:
+1. "does restart button have element in css?"
+
+2. "so i did this: [added button.className and .restart-button CSS] ...
+i did not see it whatsoever"
+
+3. "next, i noticed the restart button when appearing moves the
+\"you just lost the game\" wors and i dont want it to do that, how to prevent?"
+
+Validation/revisions:
+The restart button was tested after it appeared on the game-over screen.
+The first attempt assigned button.className before the button variable was
+created, so the order in JavaScript was corrected. Putting the button in the
+normal flex layout caused the centered loss message to move, so the button
+was changed to position: absolute. The suggested vertical position was later
+manually adjusted to 55%, and the final style also uses the Press Start 2P
+font, a red background, and scale(1.5).
+
+Challenges/limitations:
+A z-index alone did not solve the layout problem, and the button initially had
+no usable CSS class because the class assignment happened before the button
+was created. Absolute positioning fixed the text-shift issue, but the exact
+top value still required manual visual tuning.
+
+AI-assisted section:
+The .restart-button class and its absolute-positioning strategy.
+*/
 
 /*CB*/
 /* restart button that appears after the game ends */

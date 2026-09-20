@@ -62,6 +62,50 @@
     <div class="title-shadow"></div>
     <h1 class="title">MINESWEEPER</h1>
 
+
+    <!--
+    AI USE - webpage art / game-area layout
+
+    How/why AI was used:
+    ChatGPT was used to help keep the flag counter positioned with the Minesweeper
+    grid across browser zoom levels, and then to correct the webpage artwork after
+    grouping the grid and counter changed the artwork's position.
+
+    Specific prompts entered:
+    1. "is there a way to positionally keep the flag counter on top of the grid?"
+
+    2. "cool but now one thing i noticed also is that the art for the title web page
+       didnt show up until after the explositon, and was disaligned from where it was,
+       i suspect that the resaon is becasue i put
+
+           <div id="main-container" class="grid-stack">
+               <img
+                   class="webpage_art"
+                   src="minesweeper_page_art.png"
+                   alt="pixel character"
+               >
+           </div>
+
+       inside of the id="game-area", so how do i undo that but keep what you said"
+
+    Validation/revisions:
+    The layout was visually tested at different browser zoom levels, including 50%
+    and 100%. The first version grouped the decorative artwork inside #game-area,
+    which caused the artwork to become misaligned. The HTML was revised so
+    .webpage_art stays outside #game-area while #container-two and #main-container
+    remain grouped together.
+
+    Challenges/limitations:
+    Positioning depended on which parent element contained the artwork and counter.
+    Putting the artwork inside the positioned #game-area changed its positioning
+    reference, so the original AI-assisted structure needed to be revised.
+
+    AI-assisted section:
+    The placement of .webpage_art and the #game-area wrapper containing
+    #container-two and #main-container.
+    -->
+
+
     <!--RPM-->
     <!-- decorative Minesweeper image shown on the webpage -->
     <img
