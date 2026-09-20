@@ -1,7 +1,30 @@
+/*
+Name(s): Daniel Van Dalsem, Johney Makeen, Ruben Pino Martinez, Christopher Brush
+Creation Date: September 14th, 2026
+Project: Project 1 - Minesweeping Game
+File Description: This is the UI section, where it is responsible 
+for displaying the game onto the screen, and providing the user a way to play the game
+
+Daniel - UI Layout
+Johney - UI Commenting and understanding functionality of functions created
+Chris - Debugging fixes, and testing procedures
+Ruben - UI presentation: looks, music, extra add ons
+*/
+
+/*
+	Comments done by Johney Makeen on 09/16
+	- takes the result string by revealTile() ("Game Over: Loss", "Victory" )
+	- If its a loss or a win, calls lose()/win() to show the end screen and returns
+	false, so render()'s click handler knows to stop redrawing the board. 
+	- Otherwise, returns so the game keeps going and the board re-renders.
+*/
+
+//Coding in this section is done by Daniel Van Dalsem on 09/14 and 09/15. Coding is original. 
+
 let currentMusic;
 
-/*OLD VERSION, TO BE REPLACED*/
-function win_loss_continue(input,grid) {
+
+function win_loss_continue(input,grid) { //helps return the function lose and win - Johney 09/16
 	if (input === "Game Over: Loss") {
 		lose(grid)
 		return false;
@@ -14,7 +37,8 @@ function win_loss_continue(input,grid) {
 	}
 }
 
-
+}
+//Clears the board via resetScreen() and displays "you lose" in its place. - Johney 09/16
 function lose(grid) {
 	// Stop music immediately
 	currentMusic.pause();
@@ -73,21 +97,23 @@ function lose(grid) {
 
 	}, 1500);
 }
-
+//same as lose(), but displays you win instead - Johney 09/16
 function win() {
 	let container = resetScreen();
 	container.textContent = "You win!";
 	addRestartButton(container);
 }
-
+//restart button to have the user get back to the start screen, rather than having the user manually refresh the screen - Johney09/16
 function addRestartButton(container) {
 	const button = document.createElement("button");
 	button.className = "restart-button";
 	button.textContent = "RESTART";
-	button.addEventListener("click", () => window.location.reload());
+	button.addEventListener("click", () => window.location.reload()); //reloads the screen, brings them back to the starting screen - Johney 09/16
 	container.appendChild(button);
 }
 
+//shared helper used by both lose() and win(): clears the flag counter and the board -Johney 09/16
+//then creates and returns a cleared out div for the win/loss message to go into -Johney 09/16
 function resetScreen() {
 	const container = document.getElementById("main-container");
 	const flags_remaining = document.getElementById("container-two");
@@ -98,18 +124,39 @@ function resetScreen() {
 	container.appendChild(currentdiv);
 	return currentdiv;
 }
+//Comments done by Johney Makeen (09/16) and Daniel Van Dalsem (09/15)
+//Coding in this section is done by Daniel Van Dalsem, Ruben and Chris, on 09/14 and 09/15. Coding is original. 
+
+/*
+	- Starts a new game by building a 10x10 grid with the given bomb count.
+	- Then, will render it for the first time (first run = true, enables the "first click is never bomb" )
+	- This will be called from the Start Button's click handler. 
+
+*/
 
 function startup(bombs) {
 	console.log(bombs);
-	const grid = buildGrid(10, 10, bombs);
-	render(grid, bombs, true);
+	const grid = buildGrid(10, 10, bombs); // height is 10, width is 10, and number of bombs is however many the user types (between 10-20) - Johney 09/16
+	render(grid, bombs, true); //calls render, hands render 3 things: the built grid, the bombs count, and true for first run - Johney 09/16
 }
-// this waits for the page load
-// because otherwise we try to manipulate the dom before 
+// this waits for the page load - Dainel; 09/15.
+// because otherwise we try to manipulate the dom before - Dainel; 09/15.
+
+//---------------------------------------------------------------------------------------------------------------
+
+//Comments in this section done by Johney Makeen on 09/16
+//Coding in this section is done by Daniel Van Dalsem on 09/14 and 09/15. Coding is original. 
+
+/*
+	- Wrapped in window.addEventListener("load ...") so this code only
+	runs once the page's HTML is fully parsed. Without it, getElementById("main-container") would
+	run before that div exists, and the script would fail immediately.
+*/
+
 window.addEventListener("load", () => {
 
 	// RPM
-	// Adds the intro screen being a black screen to prompt user into beginning
+	// Adds the intro screen being a black screen to prompt user into beginning - Ruben 09/18
 	const introScreen = document.getElementById("intro-screen");
 	let gameStarted = false;
 
@@ -165,7 +212,7 @@ window.addEventListener("load", () => {
 	introScreen.addEventListener("click", beginGame);
 	document.addEventListener("keydown", beginGame);
 
-
+	//Builds the welcome screen: Instructions text, mine-count input, and start button -Johney 09/16
 	const container = document.getElementById("main-container");
 	const currentdiv = document.createElement("div");
 	const bonusInstuctions = document.createElement("div");
@@ -207,7 +254,8 @@ window.addEventListener("load", () => {
 	container.appendChild(bonusInstuctions)
 	container.appendChild(input);
 	container.appendChild(button);
-
+//Only start the game if the entered mine count is between 10 and 20; - Johney 09/16
+//otherwise, show an error and let the user try again - Johney 09/16
 	button.addEventListener("click", () => {
 		if(input.value>=10 && input.value<=20){
 			document.querySelectorAll(
@@ -224,6 +272,17 @@ window.addEventListener("load", () => {
 		}
 	});
 });
+//---------------------------------------------------------------------------------------------------------------
+
+//Comments done by Johney Makeen on 09/16
+//Coding in this section is done by Daniel Van Dalsem on 09/14 and 09/15. Coding is original. 
+
+/*
+	- to help out with labeling the grid's column, we decided to do the Java script switch cases.
+	- this function will convert a column index (0-9) to a letter (A-J) for the row labels. Although, visually, the letters are placed in the column.  
+	- Render will grab this function, and then preform so. 
+
+*/
 function numtoLetter(num) {
 	switch (num) {
 		case 0:
@@ -248,12 +307,20 @@ function numtoLetter(num) {
 			return "J";
 	}
 }
+/*
+	- Draws/redrews the entire baord based on the current grid state. Called once from
+	startup() to build the initial board, then called again after every click (see the handlers below)
+	since this rebuilds all tiles from scratch each time rather than updating just the one tile that changed.
+	- Johney 09/16 
+*/
+
+//Coding in this section is done by Daniel Van Dalsem, Ruben and Chris, on 09/14 and 09/15. Coding is original. 
 function render(grid, bombs, first_run) {
-	// All nessesary to reviel to win
+	// All nessesary to reviel to win - Daniel 09/15
 	const container = document.getElementById("main-container");
-	container.innerHTML = "";
-	let flags = 0;
-	for (let i = 0; i < grid.length; i++) {
+	container.innerHTML = ""; //this will wipe the previous board, before rebuilding it - Johney 09/16
+	let flags = 0; //flags counter - Johney 09/16
+	for (let i = 0; i < grid.length; i++) { //iterating through the grid - Johney 09/16
 		const currentdiv = document.createElement("div");
 		currentdiv.className = "grid-column";
 		container.appendChild(currentdiv);
@@ -262,6 +329,8 @@ function render(grid, bombs, first_run) {
 			const button = document.createElement("button");
 			currentdiv.appendChild(button);
 			button.className = "button";
+			//hidden tiles will be shown as gray, with a flag emoji if its flagged - Johney 09/16
+			//revealed tiles show white with the surrounding-bomb count -Johney 09/16
 			if (!tile.isFlipped) {
 				button.classList.add("hidden-tile");
 				if (tile.isFlagged) {
@@ -293,16 +362,16 @@ function render(grid, bombs, first_run) {
 				}
 
 			button.addEventListener("click", () => {
-				// if this is the first click and we have clicked on a bomb
+				// if this is the first click and we have clicked on a bomb - Daniel 09/15
 				if(first_run && tile.isBomb == true){
-					// if this is a mine get a list of all non mine cells that are not this cell
+					// if this is a mine get a list of all non mine cells that are not this cell - Daniel 09/15
 					let nonbombs = grid.flat(2).filter((tiler) => !tiler.isBomb);
-					// disable the mine
+					// disable the mine - Daniel 09/15
 					tile.isBomb = false;
-					// set one of the non mine cells to a mine cell
+					// set one of the non mine cells to a mine cell - Daniel 09/15
 					nonbombs[Math.floor(Math.random() * (nonbombs.length-0)-0)].isBomb = true;
 				}
-				const result = revealTile(grid, i, x);
+				const result = revealTile(grid, i, x); //Only redraw if the game is still in progress; otherwise leave the win/loss screen (set by win_loss_continue) up - Johney 09/16
 
 				if(win_loss_continue(result, grid)){
 				render(grid, bombs, false);
@@ -312,7 +381,7 @@ function render(grid, bombs, first_run) {
 				}
 			});
 			button.addEventListener("contextmenu", (e) => {
-				// prevent the right click menu from actually opening
+				// prevent the right click menu from actually opening - Daniel 09/15
 				e.preventDefault();
 
 				if (!tile.isFlipped && (!tile.isFlagged && flags < bombs || tile.isFlagged)) {
@@ -322,11 +391,15 @@ function render(grid, bombs, first_run) {
 				render(grid, bombs, false);
 			});
 		}
+		//Row letter label (A-J) from numtoLetter() - variablle is named "column" - Johney 09/16
+		//even though it labels a row (see numtoLetter's comment) - Johney 09/16
 		const column = document.createElement("div");
 		column.className = "icon-thing letter-stack";
 		column.textContent = numtoLetter(i);
 		currentdiv.appendChild(column);
 	}
+	// Column number labels (1-10) in their own role below the board - Johney 09/16
+	// is named "row" even though it labels columns - Johney 09/16
 	const currentdiv = document.createElement("div");
 	currentdiv.className = "grid-column";
 	container.appendChild(currentdiv);
@@ -336,7 +409,7 @@ function render(grid, bombs, first_run) {
 		row.textContent = x + 1;
 		currentdiv.appendChild(row);
 	}
-
+	// Displays flags remaining: total bombs minus flags currently placed - Johney 09/16
 	const containertwo = document.getElementById("container-two");
 	containertwo.innerHTML = "";
 
