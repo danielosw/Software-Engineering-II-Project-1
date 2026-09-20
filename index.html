@@ -7,10 +7,20 @@
 
     <title>Minesweeper</title>
 
+    <!--RPM-->
+    <!-- starts connecting to Google Fonts early so font can load faster -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <!--RPM-->
+    <!-- connects to Google's font file server -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!--RPM-->
+    <!-- imports the Press Start 2P font from Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
+    <!--RPM-->
+    <!-- image shown as the icon on the browser tab -->
     <link rel="minesweeper tab icon" href="mine_bomb.png">
 
     <script src="grid.js"></script>
@@ -21,33 +31,57 @@
 
 <body>
 
+    <!--RPM-->
+    <!-- black intro screen that appears before the game starts -->
     <div id="intro-screen">
+        <!--RPM-->
+        <!-- text telling the user to click to begin -->
         <p>CLICK TO BEGIN...</p>
     </div>
 
+    <!--RPM-->
+    <!-- button used to turn game audio on or off -->
     <button id="volume-button">
+        <!--RPM-->
+        <!-- image inside the volume button -->
         <img id="volume-icon" src="volume_on.png" alt="Volume">
     </button>
 
+    <!--RPM-->
+    <!-- three fire elements placed around the Minesweeper title -->
     <div class="title-fire fire-one"></div>
     <div class="title-fire fire-two"></div>
     <div class="title-fire fire-three"></div>
+
+    <!--RPM-->
+    <!-- explosion effect used when the title animation happens -->
     <div class="title-explosion"></div>
+
+    <!--RPM-->
+    <!-- shadow underneath the Minesweeper title -->
     <div class="title-shadow"></div>
     <h1 class="title">MINESWEEPER</h1>
 
+    <!--RPM-->
+    <!-- decorative Minesweeper image shown on the webpage -->
     <img
         class="webpage_art"
         src="minesweeper_page_art.png"
         alt="pixel character"
     >
 
+    <!--RPM-->
+    <!-- main area that holds the game and its nearby information -->
     <div id="game-area">
+
+        <!--RPM-->
+        <!-- container used for information next to the Minesweeper grid -->
         <div id="container-two"></div>
+
+        <!--RPM-->
+        <!-- main container where JavaScript creates the Minesweeper grid -->
         <div id="main-container" class="grid-stack"></div>
     </div>
-
-    
 
 </body>
 

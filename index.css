@@ -35,6 +35,9 @@
     cursor: pointer;
 }
 
+/*RPM*/
+/* styles below were worked on by RPM unless another set of initials is listed */
+
 /* Color of the webpage */
 body {
 	background-color: #ebedfd;
@@ -60,43 +63,66 @@ body {
 	z-index: 2;
 }
 
+/*RPM*/
+/* once the game starts, this replaces the title's animation: none */
 .game-started .title {
+    /* fall is the animation name, 2s is how long it takes, ease-in starts slow,
+    forwards keeps the title where the animation ends */
 	animation: fall 2s ease-in forwards;
 }
 
+/*RPM*/
+/* controls where the title begins and ends during the "fall" animation */
 @keyframes fall {
+    /* title starts far above the webpage */
 	from {
 		top: -3000px;
 	}
+    /* title finishes 25% down the page */
 	to {
 		top: 25%;
 	}
 }
 
+/*RPM*/
+/* black shadow that appears underneath the MINESWEEPER title */
 .title-shadow {
+    /* lets the shadow be placed using left and top */
     position: absolute;
 
+    /* location of the shadow on the screen */
     left: 48%;
     top: 36%;
 
+    /* size of the shadow */
     width: 400px;
     height: 9px;
 
     background-color: black;
+    /* makes the rectangle look more like an oval */
     border-radius: 50%;
+    /* makes the edges of the shadow blurry */
     filter: blur(10px);
 
+    /* starts invisible */
     opacity: 0;
+    /* moves left by half of its own width and starts at 30% of normal size */
     transform: translateX(-50%) scale(0.3);
 
+    /* animation is off until .game-started is added */
     animation: none;
+    /* stays below title because title is z-index 2 */
 	z-index: 1;
 }
 
+/*RPM*/
+/* starts the shadow animation when the game starts */
 .game-started .title-shadow {
 	animation: shadow-grow 2s ease-in forwards;
 }
 
+/*RPM*/
+/* shadow grows from small/invisible to larger/visible */
 @keyframes shadow-grow {
     from {
         opacity: 0;
@@ -109,31 +135,46 @@ body {
     }
 }
 
+/*RPM*/
+/* explosion sprite that plays when the title finishes falling */
 .title-explosion {
+    /* size of one frame in the explosion sprite sheet */
     width: 130px;
     height: 130px;
 
+    /* picture containing all of the explosion animation frames */
     background-image: url("explode-sprite-sheet.png");
+    /* prevents the sprite sheet from repeating */
     background-repeat: no-repeat;
 
     position: absolute;
     left: 47%;
     top: 25%;
 
+    /* centers the explosion and stretches it wider/taller */
     transform: translateX(-50%) scaleX(8) scaleY(3);
+    /* stretching happens from the center of the explosion */
     transform-origin: center;
 
+    /* puts explosion above the title and fire */
     z-index: 4;
+    /* starts invisible */
     opacity: 0;
 
+    /* explosion cannot be clicked and will not block mouse clicks */
 	pointer-events: none;
+    /* does not animate until the game starts */
     animation: none;
 }
 
+/*RPM*/
+/* wait 2 seconds, then play the explosion frames */
 .game-started .title-explosion {
 	animation: explode 0.7s steps(1) 2s forwards;
 }
 
+/*RPM*/
+/* changes background-position to show each frame of the explosion sprite sheet */
 @keyframes explode {
     0% {
         background-position: 0px 0px;
@@ -242,46 +283,66 @@ body {
     }
 }
 
+/*RPM*/
+/* fire sprite used around the MINESWEEPER title */
 .title-fire {
+    /* size of one frame in the fire sprite sheet */
     width: 120px;
     height: 120px;
 
+    /* picture containing all of the fire animation frames */
     background-image: url("ongoing_fire_sprite_sheet.png");
+    /* prevents the sprite sheet from repeating */
     background-repeat: no-repeat;
 
     position: absolute;
     left: 30%;
     top: 21%;
 
+    /* moves fire left by half its width and makes it 30% of normal size */
     transform: translateX(-50%) scale(0.3);
+    /* scaling starts from the center */
     transform-origin: center;
 
+    /* fire is above title but below explosion */
     z-index: 3;
 
+    /* starts invisible */
     opacity: 0;
 
+    /* animation is off until .game-started is added */
     animation: none;
 }
 
+/*RPM*/
+/* waits 2.3 seconds, then repeatedly plays fire animation */
 .game-started .title-fire {
 	animation: fire-animation 0.7s steps(1) 2.3s infinite;
 }
 
+/*RPM*/
+/* location of first fire image */
 .fire-one {
     left: 30%;
     top: 21%;
 }
 
+/*RPM*/
+/* location of second fire image */
 .fire-two {
     left: 43%;
     top: 27%;
 }
 
+/*RPM*/
+/* location of third fire image */
 .fire-three {
     left: 60%;
     top: 22%;
 }
 
+/*RPM*/
+/* changes background-position to show each fire sprite frame */
 @keyframes fire-animation {
     0% {
         background-position: 0px 0px;
@@ -334,52 +395,73 @@ body {
     }
 }
 
+/*RPM*/
+/* container used to center the Minesweeper grid */
 .grid-center{
+    /* turns this container into a grid */
     display: block grid;
+    /* centers the grid horizontally */
 	justify-content: center;
+    /* centers items vertically */
 	align-items: center;
 
 }
+/* stacks and centers the rows that make up the board */
 .grid-stack{
+    /* turns this container into a grid */
     display: block grid;
+    /* no space between grid items */
 	gap: 0;
+    /* centers grid horizontally */
 	justify-content: center;
+    /* centers all grid content vertically */
 	align-content: center;
+    /* container takes up 100% of screen height */
 	height: 100vh
 
 }
+/* controls how the tiles are placed across each row */
 .grid-column{
     display: block grid;
+    /* new grid items are added left-to-right */
 	grid-auto-flow: column;
+    /* every automatically created column is 3rem wide */
     grid-auto-columns: 3rem;
 }
 /* Each individual square in the Minesweeper grid */
 .button{
 	/* how rounded the corners are */
 	border-radius:.200rem;
+    /* size of every tile */
 	width: 3rem;
 	height: 3rem;
-	/*space between each square */
+	/* space between each square */
 	margin: 0;
+    /* controls vertical spacing of text inside the tile */
   	line-height:1.42857;
 }
 
 /* START BUTTON */
 .old-button {
+    /* relative keeps its normal location but still lets top/left move it */
 	position: relative;
+    /* colors of start button */
     background-color: green;
     color: white;
+    /* black outline around start button */
     border: 3px solid black;
 
+    /* space between the words and edges of the button */
     padding: .4rem .75rem;
 
     font-family: "Press Start 2P", monospace;
     font-size: .875rem;
 
+    /* moves the start button left and slightly down */
 	left: -6.5vw;
 	top: 1vh;
 
-    /* justify-self: center; */
+    /* button is only as wide as the content inside it needs */
     width: fit-content;
 }
 
@@ -390,8 +472,11 @@ body {
     height: 1.5rem;
     margin: 0;
 
+    /* flex is used so the number can be centered */
     display: flex;
+    /* centers number horizontally */
     justify-content: center;
+    /* centers number vertically */
     align-items: center;
     font-family: "Press Start 2P", monospace;
     font-size: 70%;
@@ -407,30 +492,44 @@ body {
     font-family: "Press Start 2P", monospace;
 }
 
+/*RPM*/
+/* decorative artwork shown beside the Minesweeper board */
 .webpage_art{
+    /* image takes up 40% of the parent's width */
 	width: 40%;
+    /* height changes automatically so picture keeps its shape */
 	height: auto;
+    /* lets image be placed using left and top */
 	position: absolute;
 	left: 74%;
 	top: 50%;
+    /* moves image left/up by half its own size to center it at that position */
 	transform: translate(-50%,-50%);
 }
 
+/*RPM*/
+/* text that asks the player how many mines they want */
 .mine-prompt {
 	position: relative;
 	font-family: "Press Start 2P", monospace;
 	font-size: .65rem;
+    /* moves prompt to the left */
 	left: -6.5vw;
 }
 
+/*RPM*/
+/* input box where player types the number of mines */
 .prompt-box {
 	position: relative;
+    /* moves box to the left */
 	left: -6.5vw;
 	font-family: "Press Start 2P", monospace;
 	font-size: .8rem;
+    /* box is 20% of the screen width */
 	width: 20vw;
 }
 
+/*RPM*/
 /* "Error" message for choosing more bombs than 20 and less bombs than 10 */
 .out-of-range-message {
 	position: absolute;
@@ -441,33 +540,47 @@ body {
 	font-size: 60%;
 }
 
+/*RPM*/
+/* button that holds the volume image */
 #volume-button {
+    /* lets the button be placed using bottom and left */
     position: absolute;
+    /* places volume button near bottom-left corner */
     bottom: 3%;
     left: 3%;
 
     width: 50px;
     height: 50px;
 
+    /* removes normal button background, border, and inside spacing */
     background: none;
     border: none;
     padding: 0;
 
+    /* pointer shows user that this is clickable */
     cursor: pointer;
+    /* keeps button above lower z-index objects */
     z-index: 7;
 }
 
+/*RPM*/
+/* volume picture inside the volume button */
 #volume-icon {
+    /* image fills the entire button */
     width: 100%;
     height: 100%;
 }
 
+/*RPM*/
+/* moves the letter labels around the board */
 .letter-stack {
     position: relative;
     top: .7rem;
     left: -0.5rem;
 }
 
+/*RPM*/
+/* number colors for how many mines touch a revealed tile */
 .tile-zero {
     color: gray;
 }
@@ -481,30 +594,50 @@ body {
     color: red;
 }
 
+/*CB*/
+/* flag counter showing the player how many flags are left */
 .flag-counter {
+    /* makes the flag counter text twice its normal size */
     font-size: 200%;
 }
 
+/*CB*/
+/* container used to position the flag counter area */
 #container-two {
+    /* lets the container be placed using left and top */
     position: absolute;
     left: 10%;
+    /* calc lets the position use both a percent and rem value */
     top: calc(48% - 18rem);
+    /* shifts container left by half of its own width */
     transform: translateX(-50%);
     font-family: "Press Start 2P", monospace;
 }
 
+/*CB*/
+/* main game container, also gives the restart button a positioned parent */
 #game-area {
+    /* children using absolute position can position themselves from this box */
 	position: relative;
+    /* only as wide as the game content */
 	width: fit-content;
+    /* equal automatic left/right margins centers it */
 	margin: 0 auto;
 }
 
+/*CB*/
+/* restart button that appears after the game ends */
 .restart-button {
+    /* red background with same game font */
     background-color:red;
     font-family: "Press Start 2P", monospace;
 
+    /* lets restart button be placed inside #game-area */
     position: absolute;
+    /* puts button 55% down the game area */
 	top: 55%;
+    /* puts left edge of button halfway across game area */
 	left: 50%;
+    /* moves it left half of its own width to center it, then makes it 1.5 times bigger */
 	transform: translateX(-50%) scale(1.5);
 }
