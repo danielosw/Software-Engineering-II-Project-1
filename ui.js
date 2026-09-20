@@ -36,8 +36,6 @@ function win_loss_continue(input,grid) { //helps return the function lose and wi
 		return true
 	}
 }
-
-}
 //Clears the board via resetScreen() and displays "you lose" in its place. - Johney 09/16
 function lose(grid) {
 	// Stop music immediately
